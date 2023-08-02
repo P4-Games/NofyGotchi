@@ -1,0 +1,47 @@
+/* styles/Button.module.css */
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .button {
+    font-size: 1rem; /* Utilizar unidades relativas */
+    padding: 2% 2%; /* Reducir el tamaño de los botones */
+    margin: 1.5%; /* Reducir el espacio entre los botones */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  /* Estilo al hacer hover sobre el botón */
+.button:hover {
+    /* Aplicar una escala de 1.1 para el efecto de zoom */
+    transform: scale(1.1);
+  }
+  
+  .button-purple {
+    background-color: purple;
+    color: white;
+  }
+  
+  .button-blue {
+    background-color: blue;
+    color: white;
+  }
+  
+  .button-orange {
+    background-color: orange;
+    color: black;
+  }
+
+  .button-brown {
+    background-color: brown;
+    color: white;
+  }
+
+  .button-red {
+    background-color: red;
+    color: white;
+  }
+  
