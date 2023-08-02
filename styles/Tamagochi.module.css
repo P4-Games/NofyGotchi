@@ -26,6 +26,7 @@
     align-items: center;
     overflow: hidden;
     position: relative;
+    border-radius: 20px; /* Agregar el radio para redondear las puntas */
   }
   
   .tamagochiImage {

@@ -1,35 +1,24 @@
-// pages/index.js
 import React from "react";
-import Tamagochi from "../components/Tamagochi";
 import ButtonBar from "../components/ButtonBar";
-import Stats from "../components/Stats";
+import tamagochiStyles from '../styles/Tamagochi.module.css';
+import { useRouter } from 'next/router'; // Importa el hook useRouter
 
 const HomePage = () => {
+  const router = useRouter(); // Obtiene el objeto router
+
+  const handleAbrirHuevoClick = () => {
+    // Aquí puedes agregar la lógica para abrir el huevo o cualquier otra acción que desees
+    console.log("Huevo abierto");
+
+    // Después de realizar la acción, redirige al usuario a la ruta '/nofy'
+    router.push('/nofy');
+  };
+
   const buttons = [
     {
-      label: "ALIMENTAR",
+      label: "ABRIR EL HUEVO", // Corrige el texto del botón
       color: "purple",
-      onClick: () => console.log("Botón ALIMENTAR presionado"),
-    },
-    {
-      label: "JUGAR",
-      color: "blue",
-      onClick: () => console.log("Botón JUGAR presionado"),
-    },
-    {
-      label: "ENTRENAR",
-      color: "orange",
-      onClick: () => console.log("Botón ENTRENAR presionado"),
-    },
-    {
-      label: "BAÑAR",
-      color: "red",
-      onClick: () => console.log("Botón ENTRENAR presionado"),
-    },
-    {
-      label: "DORMIR",
-      color: "brown",
-      onClick: () => console.log("Botón ENTRENAR presionado"),
+      onClick: handleAbrirHuevoClick, // Utiliza la función para redirigir al usuario
     },
   ];
 
@@ -41,22 +30,20 @@ const HomePage = () => {
   const sueño = 30;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      {/* Agrega estilos inline para reducir el espaciado */}
-      <div style={{ display: "flex", justifyContent: "space-around", width: "100%", maxWidth: "700px", margin: "10px 0" }}>
-        <Stats label="Hambre" value={weight} />
-        <Stats label="Felicidad" value={happiness} />
-        <Stats label="Nivel" value={skillLevel} />
-        <Stats label="Higiene" value={higiene} />
-        <Stats label="Sueño" value={sueño} />
+    <div>
+      <div className={tamagochiStyles.tamagochiContainer}>
+        <div className={tamagochiStyles.frame}>
+          <img
+            src="https://cdn.discordapp.com/attachments/907599032623431681/1136360642832511126/eggg.gif"
+            alt="Tamagochi"
+            className={tamagochiStyles.tamagochiImage}
+          />
+        </div>
       </div>
-      <Tamagochi />
-      {/* Coloca los botones debajo del marco */}
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
         <ButtonBar buttons={buttons} />
       </div>
     </div>
   );
 };
-
 export default HomePage;
