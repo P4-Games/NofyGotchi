@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Tamagochi from "../components/Tamagochi";
 import ButtonBar from "../components/ButtonBar";
 import Stats from "../components/Stats";
-import styles from "../styles/Tamagochi.module.css";
 
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
@@ -14,13 +13,22 @@ const Nofy = () => {
     }, 8000);
   };
 
-  const [eatGif, setEthGif] = useState(false);
+  const [eatGif, setEatGif] = useState(false);
 
   const handleEatClick = () => {
-    setEthGif(true);
+    setEatGif(true);
     setTimeout(() => {
-      setEthGif(false);
+      setEatGif(false);
     }, 3500);
+  };
+
+  const [zzzGif, setZzzGif] = useState(false);
+
+  const handleZzzClick = () => {
+    setZzzGif(true);
+    setTimeout(() => {
+      setZzzGif(false);
+    }, 16000);
   };
 
   const buttons = [
@@ -47,7 +55,7 @@ const Nofy = () => {
     {
       label: "DORMIR",
       color: "brown",
-      onClick: () => console.log("Botón DORMIR presionado"),
+      onClick: handleZzzClick,
     },
   ];
 
@@ -66,7 +74,7 @@ const Nofy = () => {
         <Stats label="Higiene" value={higiene} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi showBathGif={showBathGif} eatGif={eatGif} />
+      <Tamagochi showBathGif={showBathGif} eatGif={eatGif} zzzGif={zzzGif}/>
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
         <ButtonBar buttons={buttons} />
       </div>
