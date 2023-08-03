@@ -14,11 +14,20 @@ const Nofy = () => {
     }, 8000);
   };
 
+  const [eatGif, setEthGif] = useState(false);
+
+  const handleEatClick = () => {
+    setEthGif(true);
+    setTimeout(() => {
+      setEthGif(false);
+    }, 3500);
+  };
+
   const buttons = [
     {
       label: "ALIMENTAR",
       color: "purple",
-      onClick: () => console.log("Botón ALIMENTAR presionado"),
+      onClick: handleEatClick,
     },
     {
       label: "JUGAR",
@@ -57,7 +66,7 @@ const Nofy = () => {
         <Stats label="Higiene" value={higiene} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi showBathGif={showBathGif} />
+      <Tamagochi showBathGif={showBathGif} eatGif={eatGif} />
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
         <ButtonBar buttons={buttons} />
       </div>
