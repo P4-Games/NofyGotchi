@@ -1,38 +1,55 @@
-/* styles/Tamagochi.module.css */
 @keyframes breathe {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.1); }
-  }
-  
-  @keyframes move {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(10px, 10px); }
-    100% { transform: translate(0, 0); }
-  }
-  
-  .tamagochiContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  .frame {
-    width: 60%;
-    height: 40%;
-    border: 10px solid gold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    border-radius: 20px; /* Agregar el radio para redondear las puntas */
-  }
-  
-  .tamagochiImage {
-    max-width: 100%;
-    max-height: 100%;
-    animation: breathe 1s infinite alternate, move 2s linear infinite;
-    position: relative;
-  }
-  
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes move {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+
+.tamagochiContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.frame {
+  width: 60%;
+  height: 40%;
+  border: 10px solid gold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  border-radius: 20px;
+}
+
+.tamagochiImage {
+  max-width: 100%;
+  max-height: 100%;
+  animation: breathe 0.5s infinite alternate, move 1s linear infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.bathGifContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bathGif {
+  animation: none;
+}
