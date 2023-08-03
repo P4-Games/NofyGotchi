@@ -40,6 +40,15 @@ const Nofy = () => {
     }, 15000);
   };
 
+  const [gymGif, setGymGif] = useState(false);
+
+  const handlegymClick = () => {
+    setGymGif(true);
+    setTimeout(() => {
+      setGymGif(false);
+    }, 15000);
+  };
+
   const buttons = [
     {
       label: "ALIMENTAR",
@@ -54,7 +63,7 @@ const Nofy = () => {
     {
       label: "ENTRENAR",
       color: "orange",
-      onClick: () => console.log("Botón ENTRENAR presionado"),
+      onClick: handlegymClick,
     },
     {
       label: "BAÑAR",
@@ -83,7 +92,7 @@ const Nofy = () => {
         <Stats label="Higiene" value={higiene} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi showBathGif={showBathGif} eatGif={eatGif} zzzGif={zzzGif} gameboyGif={gameboyGif}/>
+      <Tamagochi showBathGif={showBathGif} eatGif={eatGif} zzzGif={zzzGif} gameboyGif={gameboyGif} gymGif={gymGif}/>
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
         <ButtonBar buttons={buttons} />
       </div>
