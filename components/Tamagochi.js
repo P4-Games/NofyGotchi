@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import tamagochiStyles from "../styles/Tamagochi.module.css";
 
-const Tamagochi = ({ showBathGif, eatGif, zzzGif }) => {
+const Tamagochi = ({ showBathGif, eatGif, zzzGif, gameboyGif }) => {
   const [randomNumber, setRandomNumber] = useState(null);
 
   useEffect(() => {
@@ -47,6 +47,16 @@ const Tamagochi = ({ showBathGif, eatGif, zzzGif }) => {
               src="https://cdn.discordapp.com/attachments/907599032623431681/1136475713504018583/zzz.gif"
               alt="Zzz Gif"
               className={`${tamagochiStyles.zzzGif}`}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
+        )}
+                {gameboyGif && (
+          <div className={tamagochiStyles.gameboyGifContainer}>
+            <img
+              src="https://cdn.discordapp.com/attachments/907599032623431681/1136665450869182484/Gameboy.gif"
+              alt="Gameboy Gif"
+              className={`${tamagochiStyles.gameboyGif}`}
               style={{ width: "100%", height: "100%" }}
             />
           </div>
