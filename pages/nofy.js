@@ -5,25 +5,29 @@ import Stats from "../components/Stats";
 
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
+  const [isBathing, setIsBathing] = useState(false);
   const [eatGif, setEatGif] = useState(false);
   const [zzzGif, setZzzGif] = useState(false);
   const [gameboyGif, setGameboyGif] = useState(false);
   const [gymGif, setGymGif] = useState(false);
   const [hygieneGif, setHygieneGif] = useState(null);
-  const [hygieneProgress, setHygieneProgress] = useState(100);
+  const [dirtinessLevel, setDirtinessLevel] = useState(0);
 
   const handleBathClick = () => {
     setShowBathGif(true);
-    setHygieneProgress(100);
-    const interval = setInterval(() => {
-      setHygieneProgress((prevProgress) => prevProgress - 1);
-    }, 80); // 80 ms para 1 segundo de progreso (100/8)
+    setIsBathing(true);
 
-    setTimeout(() => {
-      setShowBathGif(false);
-      clearInterval(interval);
-      setHygieneProgress(0);
-    }, 8000);
+    const interval = setInterval(() => {
+      setDirtinessLevel((prevDirtinessLevel) => {
+        if (prevDirtinessLevel <= 0) {
+          clearInterval(interval);
+          setIsBathing(false);
+          setShowBathGif(false);
+          return 0;
+        }
+        return prevDirtinessLevel - 1;
+      });
+    }, 80); // reduce dirtiness level over 8 seconds
   };
 
   const handleEatClick = () => {
@@ -54,12 +58,12 @@ const Nofy = () => {
     }, 15000);
   };
 
-  const updateHygieneGif = (progress) => {
-    if (progress >= 50 && progress < 75) {
+  const updateHygieneGif = (level) => {
+    if (level >= 30 && level < 50) {
       setHygieneGif("https://cdn.discordapp.com/attachments/907599032623431681/1137093146191339652/caca1.gif");
-    } else if (progress >= 75 && progress < 100) {
+    } else if (level >= 50 && level < 75) {
       setHygieneGif("https://cdn.discordapp.com/attachments/907599032623431681/1137093161496367265/caca2.gif");
-    } else if (progress >= 100) {
+    } else if (level >= 75) {
       setHygieneGif("https://cdn.discordapp.com/attachments/907599032623431681/1137093247945150515/caca3.gif");
     } else {
       setHygieneGif(null);
@@ -100,8 +104,25 @@ const Nofy = () => {
   const sueño = 30;
 
   useEffect(() => {
-    updateHygieneGif(hygieneProgress);
-  }, [hygieneProgress]);
+    if (!isBathing) {
+      const increaseDirtiness = setInterval(() => {
+        setDirtinessLevel((prevLevel) => {
+          if (prevLevel >= 100) {
+            clearInterval(increaseDirtiness);
+            return prevLevel;
+          } else {
+            return prevLevel + 1;
+          }
+        });
+      }, 600); // Increment dirtiness level every 600 ms, so it will take 1 minute to reach 100
+
+      return () => clearInterval(increaseDirtiness);
+    }
+  }, [isBathing]);
+
+  useEffect(() => {
+    updateHygieneGif(dirtinessLevel);
+  }, [dirtinessLevel]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -109,7 +130,7 @@ const Nofy = () => {
         <Stats label="Hambre" value={weight} />
         <Stats label="Felicidad" value={happiness} />
         <Stats label="Nivel" value={skillLevel} />
-        <Stats label="Higiene" value={hygieneProgress} />
+        <Stats label="Higiene" value={100 - dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
       <Tamagochi
