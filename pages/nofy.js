@@ -1,3 +1,4 @@
+// pages/nofy.js
 import React, { useState, useEffect } from "react";
 import Tamagochi from "../components/Tamagochi";
 import ButtonBar from "../components/ButtonBar";
@@ -6,141 +7,117 @@ import Stats from "../components/Stats";
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
   const [isBathing, setIsBathing] = useState(false);
-  const [eatGif, setEatGif] = useState(false);
-  const [zzzGif, setZzzGif] = useState(false);
-  const [gameboyGif, setGameboyGif] = useState(false);
-  const [gymGif, setGymGif] = useState(false);
-  const [hygieneGif, setHygieneGif] = useState(null);
+  const [isSleeping, setIsSleeping] = useState(false);
   const [dirtinessLevel, setDirtinessLevel] = useState(0);
+  const [sueño, setSueño] = useState(0);
+
+  const [gifs, setGifs] = useState({
+    eatGif: false,
+    zzzGif: false,
+    gameboyGif: false,
+    gymGif: false,
+    hygieneGif: null,
+    sleepGif: null,
+  });
+
+  const handleTimedState = (stateKey, duration) => {
+    setGifs((prev) => ({ ...prev, [stateKey]: true }));
+    setTimeout(() => {
+      setGifs((prev) => ({ ...prev, [stateKey]: false }));
+    }, duration);
+  };
 
   const handleBathClick = () => {
     setShowBathGif(true);
     setIsBathing(true);
-
     const interval = setInterval(() => {
-      setDirtinessLevel((prevDirtinessLevel) => {
-        if (prevDirtinessLevel <= 0) {
+      setDirtinessLevel((prev) => {
+        const nextValue = prev - 1;
+        if (nextValue <= 0) {
           clearInterval(interval);
           setIsBathing(false);
           setShowBathGif(false);
           return 0;
         }
-        return prevDirtinessLevel - 1;
+        return nextValue;
       });
-    }, 80); // reduce dirtiness level over 8 seconds
-  };
-
-  const handleEatClick = () => {
-    setEatGif(true);
-    setTimeout(() => {
-      setEatGif(false);
-    }, 3500);
+    }, 80);
   };
 
   const handleZzzClick = () => {
-    setZzzGif(true);
-    setTimeout(() => {
-      setZzzGif(false);
-    }, 16000);
+    setIsSleeping(true);
+    handleTimedState("zzzGif", 1000);
+    const interval = setInterval(() => {
+      setSueño((prev) => {
+        const nextValue = prev - 6.25;
+        if (nextValue <= 0) {
+          clearInterval(interval);
+          setIsSleeping(false);
+          return 0;
+        }
+        return nextValue;
+      });
+    }, 1000);
   };
 
-  const handleGameboyClick = () => {
-    setGameboyGif(true);
-    setTimeout(() => {
-      setGameboyGif(false);
-    }, 15000);
-  };
+  useEffect(() => {
+    const updateGif = (value, thresholds, gifs, key) => {
+      const selectedGif = thresholds.reduce((acc, threshold, index) => {
+        return value >= threshold ? gifs[index] : acc;
+      }, gifs[gifs.length - 1]);
+      setGifs((prev) => ({ ...prev, [key]: selectedGif }));
+    };
 
-  const handlegymClick = () => {
-    setGymGif(true);
-    setTimeout(() => {
-      setGymGif(false);
-    }, 15000);
-  };
+    updateGif(sueño, [50, 75], [
+      "https://cdn.discordapp.com/attachments/907599032623431681/1137188216793997343/tarde.gif",
+      "https://cdn.discordapp.com/attachments/907599032623431681/1137188248695865455/luna.gif",
+      "https://cdn.discordapp.com/attachments/907599032623431681/1137188198607499264/sol.gif",
+    ], "sleepGif");
 
-  const updateHygieneGif = (level) => {
-    if (level >= 30 && level < 50) {
-      setHygieneGif("https://cdn.discordapp.com/attachments/907599032623431681/1137093146191339652/caca1.gif");
-    } else if (level >= 50 && level < 75) {
-      setHygieneGif("https://cdn.discordapp.com/attachments/907599032623431681/1137093161496367265/caca2.gif");
-    } else if (level >= 75) {
-      setHygieneGif("https://cdn.discordapp.com/attachments/907599032623431681/1137093247945150515/caca3.gif");
-    } else {
-      setHygieneGif(null);
-    }
-  };
-
-  const buttons = [
-    {
-      label: "ALIMENTAR",
-      color: "purple",
-      onClick: handleEatClick,
-    },
-    {
-      label: "JUGAR",
-      color: "blue",
-      onClick: handleGameboyClick,
-    },
-    {
-      label: "ENTRENAR",
-      color: "orange",
-      onClick: handlegymClick,
-    },
-    {
-      label: "BAÑAR",
-      color: "red",
-      onClick: handleBathClick,
-    },
-    {
-      label: "DORMIR",
-      color: "brown",
-      onClick: handleZzzClick,
-    },
-  ];
-
-  const weight = 75;
-  const happiness = 80;
-  const skillLevel = 60;
-  const sueño = 30;
+    updateGif(dirtinessLevel, [30, 50, 75], [
+      "https://cdn.discordapp.com/attachments/907599032623431681/1137093146191339652/caca1.gif",
+      "https://cdn.discordapp.com/attachments/907599032623431681/1137093161496367265/caca2.gif",
+      "https://cdn.discordapp.com/attachments/907599032623431681/1137093247945150515/caca3.gif",
+      null,
+    ], "hygieneGif");
+  }, [sueño, dirtinessLevel]);
 
   useEffect(() => {
     if (!isBathing) {
       const increaseDirtiness = setInterval(() => {
-        setDirtinessLevel((prevLevel) => {
-          if (prevLevel >= 100) {
-            clearInterval(increaseDirtiness);
-            return prevLevel;
-          } else {
-            return prevLevel + 1;
-          }
-        });
-      }, 600); // Increment dirtiness level every 600 ms, so it will take 1 minute to reach 100
-
+        setDirtinessLevel((prev) => (prev >= 100 ? 100 : prev + 1));
+      }, 600);
       return () => clearInterval(increaseDirtiness);
     }
   }, [isBathing]);
 
   useEffect(() => {
-    updateHygieneGif(dirtinessLevel);
-  }, [dirtinessLevel]);
+    if (!isSleeping) {
+      const increaseSleep = setInterval(() => {
+        setSueño((prev) => (prev >= 100 ? 100 : prev + 1));
+      }, 1200);
+      return () => clearInterval(increaseSleep);
+    }
+  }, [isSleeping]);
+
+  const buttons = [
+    { label: "ALIMENTAR", color: "purple", onClick: () => handleTimedState("eatGif", 3500) },
+    { label: "JUGAR", color: "blue", onClick: () => handleTimedState("gameboyGif", 15000) },
+    { label: "ENTRENAR", color: "orange", onClick: () => handleTimedState("gymGif", 15000) },
+    { label: "BAÑAR", color: "red", onClick: handleBathClick },
+    { label: "DORMIR", color: "brown", onClick: handleZzzClick },
+  ];
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <div style={{ display: "flex", justifyContent: "space-around", width: "100%", maxWidth: "700px", margin: "10px 0" }}>
-        <Stats label="Hambre" value={weight} />
-        <Stats label="Felicidad" value={happiness} />
-        <Stats label="Nivel" value={skillLevel} />
+        <Stats label="Hambre" value={75} />
+        <Stats label="Felicidad" value={80} />
+        <Stats label="Nivel" value={60} />
         <Stats label="Higiene" value={100 - dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi
-        showBathGif={showBathGif}
-        eatGif={eatGif}
-        zzzGif={zzzGif}
-        gameboyGif={gameboyGif}
-        gymGif={gymGif}
-        hygieneGif={hygieneGif}
-      />
+      <Tamagochi {...gifs} showBathGif={showBathGif} />
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
         <ButtonBar buttons={buttons} />
       </div>

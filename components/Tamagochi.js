@@ -1,7 +1,16 @@
+// components/Tamagotchi.js
 import React, { useState, useEffect } from "react";
 import tamagochiStyles from "../styles/Tamagochi.module.css";
 
-const Tamagochi = ({ showBathGif, eatGif, zzzGif, gameboyGif, gymGif, hygieneGif }) => {
+const Tamagochi = ({
+  showBathGif,
+  eatGif,
+  zzzGif,
+  gameboyGif,
+  gymGif,
+  hygieneGif,
+  sleepGif,
+}) => {
   const [randomNumber, setRandomNumber] = useState(null);
 
   useEffect(() => {
@@ -77,6 +86,16 @@ const Tamagochi = ({ showBathGif, eatGif, zzzGif, gameboyGif, gymGif, hygieneGif
               src={hygieneGif}
               alt="Hygiene Gif"
               className={`${tamagochiStyles.hygieneGif}`}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
+        )}
+        {sleepGif && (
+          <div className={tamagochiStyles.sleepGifContainer}>
+            <img
+              src={sleepGif}
+              alt="Sleep Gif"
+              className={`${tamagochiStyles.sleepGif}`}
               style={{ width: "100%", height: "100%" }}
             />
           </div>
