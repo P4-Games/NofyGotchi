@@ -46,19 +46,22 @@ const Nofy = () => {
 
   const handleZzzClick = () => {
     setIsSleeping(true);
-    handleTimedState("zzzGif", 1000);
+    setGifs((prev) => ({ ...prev, zzzGif: true })); // Activar el gif de dormir
+
     const interval = setInterval(() => {
       setSueño((prev) => {
         const nextValue = prev - 6.25;
         if (nextValue <= 0) {
           clearInterval(interval);
           setIsSleeping(false);
+          setGifs((prev) => ({ ...prev, zzzGif: false })); // Desactivar el gif de dormir
           return 0;
         }
         return nextValue;
       });
     }, 1000);
   };
+
 
   useEffect(() => {
     const updateGif = (value, thresholds, gifs, key) => {
