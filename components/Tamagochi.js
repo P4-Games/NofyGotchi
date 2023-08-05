@@ -10,6 +10,8 @@ const Tamagochi = ({
   gymGif,
   hygieneGif,
   sleepGif,
+  isNight,
+  isNoon,
 }) => {
   const [randomNumber, setRandomNumber] = useState(null);
 
@@ -27,7 +29,10 @@ const Tamagochi = ({
           <img
             src={`https://storage.googleapis.com/nof-gamma/T1/${randomNumber}.png`}
             alt="Tamagochi"
-            className={tamagochiStyles.tamagochiImage}
+            className={`${tamagochiStyles.tamagochiImage} ${
+              isNight ? tamagochiStyles.nightMode : ""}
+              ${ isNoon ? tamagochiStyles.noonMode : ""
+            }`}
           />
         )}
         {showBathGif && (

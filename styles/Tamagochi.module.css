@@ -150,3 +150,11 @@
 .sleepGif {
   animation: none;
 }
+
+.nightMode {
+  filter: brightness(20%);
+}
+
+.noonMode {
+  filter: brightness(50%);
+}

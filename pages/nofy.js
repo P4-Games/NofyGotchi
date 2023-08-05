@@ -117,7 +117,7 @@ const Nofy = () => {
         <Stats label="Higiene" value={100 - dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi {...gifs} showBathGif={showBathGif} />
+      <Tamagochi {...gifs} showBathGif={showBathGif} isNight={sueño >= 75} isNoon={sueño >= 50 && sueño < 75} />
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
         <ButtonBar buttons={buttons} />
       </div>
