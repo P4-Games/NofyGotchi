@@ -10,6 +10,7 @@ const Nofy = () => {
   const [isSleeping, setIsSleeping] = useState(false);
   const [dirtinessLevel, setDirtinessLevel] = useState(0);
   const [sueño, setSueño] = useState(0);
+  const [hunger, setHunger] = useState(0);
 
   const [gifs, setGifs] = useState({
     eatGif: false,
@@ -61,6 +62,21 @@ const Nofy = () => {
     }, 1000);
   };
 
+  const handleFeedClick = () => {
+    handleTimedState("eatGif", 3500); // Mostrar el gif de comer durante 3.5 segundos
+    setHunger((prev) => {
+      const newValue = prev - 25;
+      return newValue < 0 ? 0 : newValue;
+    });
+  };
+
+  useEffect(() => {
+    const increaseHunger = setInterval(() => {
+      setHunger((prev) => (prev >= 100 ? 100 : prev + 1));
+    }, 450); // Incrementar en 1 cada 450ms para llegar a 100 en 45 segundos.
+
+    return () => clearInterval(increaseHunger);
+  }, []);
 
   useEffect(() => {
     const updateGif = (value, thresholds, gifs, key) => {
@@ -70,18 +86,28 @@ const Nofy = () => {
       setGifs((prev) => ({ ...prev, [key]: selectedGif }));
     };
 
-    updateGif(sueño, [50, 75], [
-      "https://cdn.discordapp.com/attachments/907599032623431681/1137188216793997343/tarde.gif",
-      "https://cdn.discordapp.com/attachments/907599032623431681/1137188248695865455/luna.gif",
-      "https://cdn.discordapp.com/attachments/907599032623431681/1137188198607499264/sol.gif",
-    ], "sleepGif");
+    updateGif(
+      sueño,
+      [50, 75],
+      [
+        "https://cdn.discordapp.com/attachments/907599032623431681/1137188216793997343/tarde.gif",
+        "https://cdn.discordapp.com/attachments/907599032623431681/1137188248695865455/luna.gif",
+        "https://cdn.discordapp.com/attachments/907599032623431681/1137188198607499264/sol.gif",
+      ],
+      "sleepGif"
+    );
 
-    updateGif(dirtinessLevel, [30, 50, 75], [
-      "https://cdn.discordapp.com/attachments/907599032623431681/1137093146191339652/caca1.gif",
-      "https://cdn.discordapp.com/attachments/907599032623431681/1137093161496367265/caca2.gif",
-      "https://cdn.discordapp.com/attachments/907599032623431681/1137093247945150515/caca3.gif",
-      null,
-    ], "hygieneGif");
+    updateGif(
+      dirtinessLevel,
+      [30, 50, 75],
+      [
+        "https://cdn.discordapp.com/attachments/907599032623431681/1137093146191339652/caca1.gif",
+        "https://cdn.discordapp.com/attachments/907599032623431681/1137093161496367265/caca2.gif",
+        "https://cdn.discordapp.com/attachments/907599032623431681/1137093247945150515/caca3.gif",
+        null,
+      ],
+      "hygieneGif"
+    );
   }, [sueño, dirtinessLevel]);
 
   useEffect(() => {
@@ -103,22 +129,43 @@ const Nofy = () => {
   }, [isSleeping]);
 
   const buttons = [
-    { label: "ALIMENTAR", color: "purple", onClick: () => handleTimedState("eatGif", 3500) },
-    { label: "JUGAR", color: "blue", onClick: () => handleTimedState("gameboyGif", 15000) },
+    { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
+    {
+      label: "JUGAR",
+      color: "blue",
+      onClick: () => handleTimedState("gameboyGif", 15000),
+    },
     { label: "BAÑAR", color: "red", onClick: handleBathClick },
     { label: "DORMIR", color: "brown", onClick: handleZzzClick },
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <div style={{ display: "flex", justifyContent: "space-around", width: "100%", maxWidth: "700px", margin: "10px 0" }}>
-        <Stats label="Hambre" value={75} />
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-around",
+          width: "100%",
+          maxWidth: "700px",
+          margin: "10px 0",
+        }}
+      >
+        <Stats label="Hambre" value={hunger} />
         <Stats label="Felicidad" value={80} />
         <Stats label="Suciedad" value={dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi {...gifs} showBathGif={showBathGif} isNight={sueño >= 75} isNoon={sueño >= 50 && sueño < 75} />
-      <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
+      <Tamagochi
+        {...gifs}
+        showBathGif={showBathGif}
+        isNight={sueño >= 75}
+        isNoon={sueño >= 50 && sueño < 75}
+      />
+      <div
+        style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
+      >
         <ButtonBar buttons={buttons} />
       </div>
     </div>
