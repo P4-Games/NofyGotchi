@@ -15,7 +15,6 @@ const Nofy = () => {
     eatGif: false,
     zzzGif: false,
     gameboyGif: false,
-    gymGif: false,
     hygieneGif: null,
     sleepGif: null,
   });
@@ -106,7 +105,6 @@ const Nofy = () => {
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: () => handleTimedState("eatGif", 3500) },
     { label: "JUGAR", color: "blue", onClick: () => handleTimedState("gameboyGif", 15000) },
-    { label: "ENTRENAR", color: "orange", onClick: () => handleTimedState("gymGif", 15000) },
     { label: "BAÑAR", color: "red", onClick: handleBathClick },
     { label: "DORMIR", color: "brown", onClick: handleZzzClick },
   ];
@@ -116,8 +114,7 @@ const Nofy = () => {
       <div style={{ display: "flex", justifyContent: "space-around", width: "100%", maxWidth: "700px", margin: "10px 0" }}>
         <Stats label="Hambre" value={75} />
         <Stats label="Felicidad" value={80} />
-        <Stats label="Nivel" value={60} />
-        <Stats label="Higiene" value={100 - dirtinessLevel} />
+        <Stats label="Suciedad" value={dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
       <Tamagochi {...gifs} showBathGif={showBathGif} isNight={sueño >= 75} isNoon={sueño >= 50 && sueño < 75} />

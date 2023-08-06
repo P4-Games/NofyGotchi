@@ -2,16 +2,22 @@
 .buttonContainer {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+    margin-top: 5%;
   }
   
   .button {
-    font-size: 80%; /* Utilizar unidades relativas */
+    font-size: 100%; /* Utilizar unidades relativas */
     padding: 2% 2%; /* Reducir el tamaño de los botones */
     margin: 1.5%; /* Reducir el espacio entre los botones */
     border: none;
     border-radius: 10px;
     cursor: pointer;
+  }
+
+  @media screen and (min-width: 500px) {
+    .button {
+      font-size: 130%;
+    }
   }
 
   /* Estilo al hacer hover sobre el botón */
