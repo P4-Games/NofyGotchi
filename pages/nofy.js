@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Tamagochi from "../components/Tamagochi";
 import ButtonBar from "../components/ButtonBar";
 import Stats from "../components/Stats";
+import Timer from "../components/Timer";
 
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
@@ -13,6 +14,9 @@ const Nofy = () => {
   const [hunger, setHunger] = useState(0);
   const [game, setGameboy] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const [minutes, setMinutes] = useState(10);
+  const [seconds, setSeconds] = useState(0);
 
   const [gifs, setGifs] = useState({
     eatGif: false,
@@ -79,7 +83,7 @@ const aumentarStatJuego = () => {
 
 const handleGameboyClick = () => {
   setIsPlaying(true);
-  handleTimedState("gameboyGif", 12000); // Mostrar el gif del juego durante 12 segundos
+  handleTimedState("gameboyGif", 8000); // Mostrar el gif del juego durante 12 segundos
   
   const decreaseAmount = 40 / 125;
   let iterations = 0;
@@ -167,6 +171,22 @@ useEffect(() => {
     }
   }, [isSleeping]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds((prevSeconds) => prevSeconds - 1);
+      } else if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setMinutes((prevMinutes) => prevMinutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [seconds]);
+
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
     { label: "JUGAR", color: "blue", onClick: handleGameboyClick},
@@ -175,9 +195,7 @@ useEffect(() => {
   ];
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <div
         style={{
           display: "flex",
@@ -189,6 +207,7 @@ useEffect(() => {
       >
         <Stats label="Hambre" value={hunger} />
         <Stats label="Felicidad" value={game} />
+        <Timer minutes={minutes} seconds={seconds} />
         <Stats label="Suciedad" value={dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
