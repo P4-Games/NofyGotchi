@@ -4,6 +4,9 @@ import Tamagochi from "../components/Tamagochi";
 import ButtonBar from "../components/ButtonBar";
 import Stats from "../components/Stats";
 import Timer from "../components/Timer";
+import GameOverAlert from "../components/GameOverAlert";
+import styles from "../styles/GameOverAlert.module.css";
+
 
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
@@ -14,6 +17,8 @@ const Nofy = () => {
   const [hunger, setHunger] = useState(0);
   const [game, setGameboy] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showGameOverAlert, setShowGameOverAlert] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
@@ -76,42 +81,42 @@ const Nofy = () => {
     });
   };
 
-// Función para incrementar el stat de juego
-const aumentarStatJuego = () => {
-  setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
-};
+  // Función para incrementar el stat de juego
+  const aumentarStatJuego = () => {
+    setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
+  };
 
-const handleGameboyClick = () => {
-  setIsPlaying(true);
-  handleTimedState("gameboyGif", 8000); // Mostrar el gif del juego durante 12 segundos
-  
-  const decreaseAmount = 40 / 125;
-  let iterations = 0;
-  
-  const interval = setInterval(() => {
-    setGameboy((prev) => {
-      const newValue = prev - decreaseAmount;
-      iterations++;
-      if (newValue <= 0 || iterations >= 125) {
-        clearInterval(interval);
-        setIsPlaying(false); // Establecer isPlaying en false cuando el juego ha terminado
-        aumentarStatJuego(); // Llamar a la función para incrementar el stat de juego
-        return Math.max(0, newValue);
-      }
-      return newValue;
-    });
-  }, 100);
-};
+  const handleGameboyClick = () => {
+    setIsPlaying(true);
+    handleTimedState("gameboyGif", 8000); // Mostrar el gif del juego durante 12 segundos
 
-useEffect(() => {
-  // Incrementar el stat de juego cuando no se está jugando el juego
-  if (!isPlaying) {
-    const increaseGameboy = setInterval(() => {
-      setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
-    }, 750);
-    return () => clearInterval(increaseGameboy);
-  }
-}, [isPlaying]);
+    const decreaseAmount = 40 / 125;
+    let iterations = 0;
+
+    const interval = setInterval(() => {
+      setGameboy((prev) => {
+        const newValue = prev - decreaseAmount;
+        iterations++;
+        if (newValue <= 0 || iterations >= 125) {
+          clearInterval(interval);
+          setIsPlaying(false); // Establecer isPlaying en false cuando el juego ha terminado
+          aumentarStatJuego(); // Llamar a la función para incrementar el stat de juego
+          return Math.max(0, newValue);
+        }
+        return newValue;
+      });
+    }, 100);
+  };
+
+  useEffect(() => {
+    // Incrementar el stat de juego cuando no se está jugando el juego
+    if (!isPlaying) {
+      const increaseGameboy = setInterval(() => {
+        setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
+      }, 750);
+      return () => clearInterval(increaseGameboy);
+    }
+  }, [isPlaying]);
 
   useEffect(() => {
     const increaseHunger = setInterval(() => {
@@ -187,15 +192,26 @@ useEffect(() => {
     return () => clearInterval(interval);
   }, [seconds]);
 
+  useEffect(() => {
+    // Verificar si algún stat alcanza 100
+    if (hunger >= 100 || game >= 100 || dirtinessLevel >= 100 || sueño >= 100) {
+      // Pausar el juego y mostrar la alerta de "GAME OVER"
+      setIsPaused(true);
+      setShowGameOverAlert(true);
+    }
+  }, [hunger, game, dirtinessLevel, sueño]);
+
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
-    { label: "JUGAR", color: "blue", onClick: handleGameboyClick},
+    { label: "JUGAR", color: "blue", onClick: handleGameboyClick },
     { label: "BAÑAR", color: "red", onClick: handleBathClick },
     { label: "DORMIR", color: "brown", onClick: handleZzzClick },
   ];
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <div
         style={{
           display: "flex",
@@ -221,6 +237,11 @@ useEffect(() => {
         style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
       >
         <ButtonBar buttons={buttons} />
+        {isPaused && <div className={styles.overlay} />}{" "}
+        {/* Agrega el fondo para la pausa */}
+        {showGameOverAlert && (
+          <GameOverAlert onClose={() => setShowGameOverAlert(false)} />
+        )}
       </div>
     </div>
   );

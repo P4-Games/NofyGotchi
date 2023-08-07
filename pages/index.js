@@ -22,19 +22,12 @@ const HomePage = () => {
     },
   ];
 
-  // Puedes reemplazar estos valores con los datos reales de tu aplicación
-  const weight = 75;
-  const happiness = 80;
-  const skillLevel = 60;
-  const higiene = 20;
-  const sueño = 30;
-
-  return (
+   return (
     <div>
       <div className={tamagochiStyles.tamagochiContainer}>
         <div className={tamagochiStyles.frame}>
           <img
-            src="https://cdn.discordapp.com/attachments/907599032623431681/1136360642832511126/eggg.gif"
+            src="https://cdn.discordapp.com/attachments/907599032623431681/1138187870809640980/eggg.gif"
             alt="Tamagochi"
             className={tamagochiStyles.tamagochiImage}
           />
@@ -45,5 +38,5 @@ const HomePage = () => {
       </div>
     </div>
   );
-};
+  };
 export default HomePage;
