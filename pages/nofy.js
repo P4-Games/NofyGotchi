@@ -11,6 +11,8 @@ const Nofy = () => {
   const [dirtinessLevel, setDirtinessLevel] = useState(0);
   const [sueño, setSueño] = useState(0);
   const [hunger, setHunger] = useState(0);
+  const [game, setGameboy] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const [gifs, setGifs] = useState({
     eatGif: false,
@@ -69,6 +71,43 @@ const Nofy = () => {
       return newValue < 0 ? 0 : newValue;
     });
   };
+
+// Función para incrementar el stat de juego
+const aumentarStatJuego = () => {
+  setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
+};
+
+const handleGameboyClick = () => {
+  setIsPlaying(true);
+  handleTimedState("gameboyGif", 12000); // Mostrar el gif del juego durante 12 segundos
+  
+  const decreaseAmount = 40 / 125;
+  let iterations = 0;
+  
+  const interval = setInterval(() => {
+    setGameboy((prev) => {
+      const newValue = prev - decreaseAmount;
+      iterations++;
+      if (newValue <= 0 || iterations >= 125) {
+        clearInterval(interval);
+        setIsPlaying(false); // Establecer isPlaying en false cuando el juego ha terminado
+        aumentarStatJuego(); // Llamar a la función para incrementar el stat de juego
+        return Math.max(0, newValue);
+      }
+      return newValue;
+    });
+  }, 100);
+};
+
+useEffect(() => {
+  // Incrementar el stat de juego cuando no se está jugando el juego
+  if (!isPlaying) {
+    const increaseGameboy = setInterval(() => {
+      setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
+    }, 750);
+    return () => clearInterval(increaseGameboy);
+  }
+}, [isPlaying]);
 
   useEffect(() => {
     const increaseHunger = setInterval(() => {
@@ -130,11 +169,7 @@ const Nofy = () => {
 
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
-    {
-      label: "JUGAR",
-      color: "blue",
-      onClick: () => handleTimedState("gameboyGif", 15000),
-    },
+    { label: "JUGAR", color: "blue", onClick: handleGameboyClick},
     { label: "BAÑAR", color: "red", onClick: handleBathClick },
     { label: "DORMIR", color: "brown", onClick: handleZzzClick },
   ];
@@ -153,7 +188,7 @@ const Nofy = () => {
         }}
       >
         <Stats label="Hambre" value={hunger} />
-        <Stats label="Felicidad" value={80} />
+        <Stats label="Felicidad" value={game} />
         <Stats label="Suciedad" value={dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
