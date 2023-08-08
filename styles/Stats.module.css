@@ -37,3 +37,14 @@
   margin-top: 5px;
 }
  
+.greenFillBackground {
+  background-color: #4caf50;
+}
+
+.yellowFillBackground {
+  background-color: rgb(255, 217, 0);
+}
+
+.redFillBackground {
+  background-color: rgb(209, 4, 4);
+}
