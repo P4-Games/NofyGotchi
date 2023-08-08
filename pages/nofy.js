@@ -20,6 +20,7 @@ const Nofy = () => {
   const [showGameOverAlert, setShowGameOverAlert] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [showVictoryAlert, setShowVictoryAlert] = useState(false);
+  const [isPerformingAction, setIsPerformingAction] = useState(false);
 
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
@@ -40,6 +41,8 @@ const Nofy = () => {
   };
 
   const handleBathClick = () => {
+    if (isPerformingAction) return; // Checa si ya está realizando una acción
+    setIsPerformingAction(true);
     setShowBathGif(true);
     setIsBathing(true);
     const interval = setInterval(() => {
@@ -49,6 +52,7 @@ const Nofy = () => {
           clearInterval(interval);
           setIsBathing(false);
           setShowBathGif(false);
+          setIsPerformingAction(false);
           return 0;
         }
         return nextValue;
@@ -57,6 +61,8 @@ const Nofy = () => {
   };
 
   const handleZzzClick = () => {
+    if (isPerformingAction) return; // Checa si ya está realizando una acción
+    setIsPerformingAction(true);
     setIsSleeping(true);
     setGifs((prev) => ({ ...prev, zzzGif: true })); // Activar el gif de dormir
 
@@ -67,6 +73,7 @@ const Nofy = () => {
           clearInterval(interval);
           setIsSleeping(false);
           setGifs((prev) => ({ ...prev, zzzGif: false })); // Desactivar el gif de dormir
+          setIsPerformingAction(false);
           return 0;
         }
         return nextValue;
@@ -75,11 +82,17 @@ const Nofy = () => {
   };
 
   const handleFeedClick = () => {
-    handleTimedState("eatGif", 3500); // Mostrar el gif de comer durante 3.5 segundos
-    setHunger((prev) => {
-      const newValue = prev - 25;
-      return newValue < 0 ? 0 : newValue;
-    });
+    if (isPerformingAction) return;
+    setIsPerformingAction(true);
+    handleTimedState("eatGif", 3500);
+  
+    setTimeout(() => {
+      setHunger((prev) => {
+        const newValue = prev - 25;
+        setIsPerformingAction(false);
+        return newValue < 0 ? 0 : newValue;
+      });
+    }, 3500); // Establecer isPerformingAction en false después de 3.5 segundos
   };
 
   // Función para incrementar el stat de juego
@@ -88,6 +101,8 @@ const Nofy = () => {
   };
 
   const handleGameboyClick = () => {
+    if (isPerformingAction) return; // Checa si ya está realizando una acción
+    setIsPerformingAction(true);
     setIsPlaying(true);
     handleTimedState("gameboyGif", 8000); // Mostrar el gif del juego durante 12 segundos
 
@@ -101,6 +116,7 @@ const Nofy = () => {
         if (newValue <= 0 || iterations >= 125) {
           clearInterval(interval);
           setIsPlaying(false); // Establecer isPlaying en false cuando el juego ha terminado
+          setIsPerformingAction(false);
           aumentarStatJuego(); // Llamar a la función para incrementar el stat de juego
           return Math.max(0, newValue);
         }
@@ -244,7 +260,7 @@ const Nofy = () => {
       <div
         style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
       >
-        <ButtonBar buttons={buttons} />
+        <ButtonBar buttons={buttons} isPerformingAction={isPerformingAction} />
         {isPaused && <div className={styles.overlay} />}{" "}
         {/* Agrega el fondo para la pausa */}
         {showGameOverAlert && (

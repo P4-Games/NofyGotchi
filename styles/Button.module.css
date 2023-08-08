@@ -51,3 +51,7 @@
     color: white;
   }
   
+  .disabledButton {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
