@@ -22,7 +22,7 @@ const Nofy = () => {
   const [showVictoryAlert, setShowVictoryAlert] = useState(false);
   const [isPerformingAction, setIsPerformingAction] = useState(false);
 
-  const [minutes, setMinutes] = useState(10);
+  const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
 
   const [gifs, setGifs] = useState({
@@ -130,7 +130,7 @@ const Nofy = () => {
     if (!isPlaying) {
       const increaseGameboy = setInterval(() => {
         setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 750);
+      }, 650);
       return () => clearInterval(increaseGameboy);
     }
   }, [isPlaying]);
@@ -179,7 +179,7 @@ const Nofy = () => {
     if (!isBathing) {
       const increaseDirtiness = setInterval(() => {
         setDirtinessLevel((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 600);
+      }, 400);
       return () => clearInterval(increaseDirtiness);
     }
   }, [isBathing]);
@@ -188,7 +188,7 @@ const Nofy = () => {
     if (!isSleeping) {
       const increaseSleep = setInterval(() => {
         setSueño((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 1200);
+      }, 500);
       return () => clearInterval(increaseSleep);
     }
   }, [isSleeping]);

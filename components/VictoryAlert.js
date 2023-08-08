@@ -8,7 +8,7 @@ const GameOverAlert = ({ onClose }) => {
       <div className={styles.modal}>
         <div className={styles.message}>
           <h2>¡VICTORY!</h2>
-          <p>Felcitaciones has superado el desafio, eres un verdadero Numer One Fan.</p>
+          <p>Felcitaciones has superado el desafio, eres un verdadero Number One Fan.</p>
         </div>
         <Link href="/" passHref>
           <button className={styles.playAgainButton}>Jugar de nuevo</button>
