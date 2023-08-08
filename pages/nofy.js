@@ -6,7 +6,7 @@ import Stats from "../components/Stats";
 import Timer from "../components/Timer";
 import GameOverAlert from "../components/GameOverAlert";
 import styles from "../styles/GameOverAlert.module.css";
-
+import VictoryAlert from "../components/VictoryAlert";
 
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
@@ -19,6 +19,7 @@ const Nofy = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [showGameOverAlert, setShowGameOverAlert] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [showVictoryAlert, setShowVictoryAlert] = useState(false);
 
   const [minutes, setMinutes] = useState(10);
   const [seconds, setSeconds] = useState(0);
@@ -201,6 +202,13 @@ const Nofy = () => {
     }
   }, [hunger, game, dirtinessLevel, sueño]);
 
+  useEffect(() => {
+    if (minutes === 0 && seconds === 0) {
+      setShowVictoryAlert(true);
+      setIsPaused(true); // Pausa el juego
+    }
+  }, [minutes, seconds]);
+
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
     { label: "JUGAR", color: "blue", onClick: handleGameboyClick },
@@ -241,6 +249,9 @@ const Nofy = () => {
         {/* Agrega el fondo para la pausa */}
         {showGameOverAlert && (
           <GameOverAlert onClose={() => setShowGameOverAlert(false)} />
+        )}
+        {showVictoryAlert && (
+          <VictoryAlert onClose={() => setShowVictoryAlert(false)} />
         )}
       </div>
     </div>
