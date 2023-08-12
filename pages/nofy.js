@@ -219,7 +219,7 @@ const Nofy = () => {
   }, [hunger, game, dirtinessLevel, sueño]);
 
   useEffect(() => {
-    if (minutes === 5 && seconds === 0) {
+    if (minutes === 0 && seconds === 0) {
       setShowVictoryAlert(true);
       setIsPaused(true); // Pausa el juego
     }
