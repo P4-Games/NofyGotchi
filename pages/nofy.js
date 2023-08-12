@@ -219,7 +219,7 @@ const Nofy = () => {
   }, [hunger, game, dirtinessLevel, sueño]);
 
   useEffect(() => {
-    if (minutes === 0 && seconds === 0) {
+    if (minutes === 5 && seconds === 0) {
       setShowVictoryAlert(true);
       setIsPaused(true); // Pausa el juego
     }
@@ -227,9 +227,9 @@ const Nofy = () => {
 
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
-    { label: "JUGAR", color: "blue", onClick: handleGameboyClick },
-    { label: "BAÑAR", color: "red", onClick: handleBathClick },
-    { label: "DORMIR", color: "brown", onClick: handleZzzClick },
+    { label: "HACKEAR", color: "blue", onClick: handleGameboyClick },
+    { label: "FUZZEAR", color: "red", onClick: handleBathClick },
+    { label: "BATERIA", color: "brown", onClick: handleZzzClick },
   ];
 
   return (
@@ -249,7 +249,7 @@ const Nofy = () => {
         <Stats label="Felicidad" value={game} />
         <Timer minutes={minutes} seconds={seconds} />
         <Stats label="Suciedad" value={dirtinessLevel} />
-        <Stats label="Sueño" value={sueño} />
+        <Stats label="Battery" value={sueño} />
       </div>
       <Tamagochi
         {...gifs}

@@ -5,7 +5,7 @@ import buttonStyles from '../styles/Button.module.css';
 const ButtonBar = ({ buttons, isPerformingAction }) => {
   const handleButtonClick = (onClick) => {
     if (isPerformingAction) {
-      alert('Nofy is currently busy! Please wait.'); // Puedes reemplazar esto con un toast o un modal si prefieres.
+      alert('Butty is currently busy! Please wait.'); // Puedes reemplazar esto con un toast o un modal si prefieres.
     } else {
       onClick();
     }

@@ -8,7 +8,7 @@ const GameOverAlert = ({ onClose }) => {
       <div className={styles.modal}>
         <div className={styles.message}>
           <h2>¡GAME OVER!</h2>
-          <p>Tu Nofy ha muerto, intentalo nuevamente.</p>
+          <p>Tu Butty ha muerto, intentalo nuevamente.</p>
         </div>
         <Link href="/" passHref>
           <button className={styles.playAgainButton}>Jugar de nuevo</button>

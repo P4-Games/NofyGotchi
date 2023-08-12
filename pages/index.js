@@ -16,7 +16,7 @@ const HomePage = () => {
 
   const buttons = [
     {
-      label: "ABRIR  HUEVO",
+      label: "ROMPER LOS HUEVO",
       color: "purple",
       onClick: handleAbrirHuevoClick,
     },
