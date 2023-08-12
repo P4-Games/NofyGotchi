@@ -17,7 +17,7 @@ const Tamagochi = ({
 
   useEffect(() => {
     if (randomNumber === null) {
-      const random = Math.floor(Math.random() * 120);
+      const random = Math.floor(Math.random() * 1024);
       setRandomNumber(random);
     }
   }, [randomNumber]);
@@ -27,13 +27,14 @@ const Tamagochi = ({
       <div className={tamagochiStyles.frame}>
         {randomNumber !== null && (
           <img
-            src={`https://storage.googleapis.com/nof-gamma/T1/${randomNumber}.png`}
-            alt="Tamagochi"
-            className={`${tamagochiStyles.tamagochiImage} ${
-              isNight ? tamagochiStyles.nightMode : ""}
-              ${ isNoon ? tamagochiStyles.noonMode : ""
-            }`}
-          />
+  src={`https://bafybeibnw2yuc7tpkt4pkzx3c2yizyjx24vioehwqodxppbqoyncyi4t44.ipfs.dweb.link/${randomNumber}.gif`}
+  alt="Tamagochi"
+  className={`${tamagochiStyles.tamagochiImage} ${
+    isNight ? tamagochiStyles.nightMode : ""
+  } ${isNoon ? tamagochiStyles.noonMode : ""}`}
+  style={{ width: "1200px", height: "100%" }} // Agrega este estilo
+/>
+
         )}
         {showBathGif && (
           <div className={tamagochiStyles.bathGifContainer}>
