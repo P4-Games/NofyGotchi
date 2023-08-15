@@ -226,10 +226,10 @@ const Nofy = () => {
   }, [minutes, seconds]);
 
   const buttons = [
-    { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
+    { label: "FIXEAR", color: "purple", onClick: handleFeedClick },
     { label: "HACKEAR", color: "blue", onClick: handleGameboyClick },
     { label: "FUZZEAR", color: "red", onClick: handleBathClick },
-    { label: "BATERIA", color: "brown", onClick: handleZzzClick },
+    { label: "CHARGE", color: "brown", onClick: handleZzzClick },
   ];
 
   return (
@@ -245,10 +245,10 @@ const Nofy = () => {
           margin: "10px 0",
         }}
       >
-        <Stats label="Hambre" value={hunger} />
-        <Stats label="Felicidad" value={game} />
+        <Stats label="Bug" value={hunger} />
+        <Stats label="Bounty" value={game} />
         <Timer minutes={minutes} seconds={seconds} />
-        <Stats label="Suciedad" value={dirtinessLevel} />
+        <Stats label="Fine-Tuning" value={dirtinessLevel} />
         <Stats label="Battery" value={sueño} />
       </div>
       <Tamagochi

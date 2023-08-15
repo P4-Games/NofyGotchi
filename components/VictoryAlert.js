@@ -14,7 +14,7 @@ const GameOverAlert = ({ onClose }) => {
           <button className={styles.playAgainButton}>Jugar de nuevo</button>
         </Link>
         <Link href="https://discord.com/invite/eegRCDmwbM" passHref>
-          <button className={styles.discordButton}>¡Unete a nuestro Discod!</button>
+          <button className={styles.discordButton}>¡Sumate a nuestro Discod!</button>
         </Link>
       </div>
     </div>

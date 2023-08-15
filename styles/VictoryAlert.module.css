@@ -58,6 +58,10 @@
     cursor: pointer;
     margin-top: 10px;
   }
+
+  .discordButton:hover {
+    background-color: #5c6aee;
+  }
   
   .playAgainButton:hover {
     background-color: goldenrod;
