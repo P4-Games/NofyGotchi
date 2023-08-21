@@ -104,7 +104,7 @@ const Nofy = () => {
     if (isPerformingAction) return; // Checa si ya está realizando una acción
     setIsPerformingAction(true);
     setIsPlaying(true);
-    handleTimedState("gameboyGif", 8000); // Mostrar el gif del juego durante 12 segundos
+    setGifs((prev) => ({ ...prev, gameboyGif: true }));
 
     const decreaseAmount = 40 / 125;
     let iterations = 0;
@@ -117,6 +117,7 @@ const Nofy = () => {
           clearInterval(interval);
           setIsPlaying(false); // Establecer isPlaying en false cuando el juego ha terminado
           setIsPerformingAction(false);
+          setGifs((prev) => ({ ...prev, gameboyGif: false }));
           aumentarStatJuego(); // Llamar a la función para incrementar el stat de juego
           return Math.max(0, newValue);
         }
