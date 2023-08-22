@@ -196,7 +196,7 @@ const Nofy = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (seconds > 0) {
+      if (seconds > 0 && !isPaused) {
         setSeconds((prevSeconds) => prevSeconds - 1);
       } else if (seconds === 0) {
         if (minutes === 0) {
@@ -212,7 +212,7 @@ const Nofy = () => {
 
   useEffect(() => {
     // Verificar si algún stat alcanza 100
-    if (hunger >= 100 || game >= 100 || dirtinessLevel >= 100 || sueño >= 100) {
+    if (hunger >= 100 || game >= 100 || dirtinessLevel >= 100 || sueño >= 100 && !isPaused) {
       // Pausar el juego y mostrar la alerta de "GAME OVER"
       setIsPaused(true);
       setShowGameOverAlert(true);
@@ -220,7 +220,7 @@ const Nofy = () => {
   }, [hunger, game, dirtinessLevel, sueño]);
 
   useEffect(() => {
-    if (minutes === 0 && seconds === 0) {
+    if (minutes === 0 && seconds === 0 && !isPaused) {
       setShowVictoryAlert(true);
       setIsPaused(true); // Pausa el juego
     }
