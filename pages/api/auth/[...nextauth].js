@@ -1,13 +1,11 @@
-// api/auth/[...nextauth].js
-
 import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 
 export const authOptions = {
   providers: [
     DiscordProvider({
-      clientId: "1143713741200965723",
-      clientSecret: "mmQLns5RkEnADXso5hAY5JsxIi1oLDSc",
+      clientId: process.env.DISCORD_CLIENT_ID,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET,
     }),
   ],
 };
