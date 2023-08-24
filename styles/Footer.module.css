@@ -1,0 +1,45 @@
+.footer {
+    position: fixed; /* Fija el footer en la parte inferior de la pantalla */
+    bottom: 0; /* Lo coloca al final de la pantalla */
+    width: 100%;
+    background-color: rgba(240, 240, 240, 0.5); /* Fondo transparente con color */
+  }
+  
+  .imageContainer {
+    display: flex;
+    padding: 10px;
+    animation: scrollImages 120s linear infinite;
+  }
+  
+  @keyframes scrollImages {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-80px * 132));
+    }
+  }
+  
+  .image {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+  }
+  
+  /* Estilos para pantallas menores o iguales a 1000px */
+@media (max-width: 1000px) {
+    .footer {
+      display: block; /* Muestra el footer en pantallas menores o iguales a 1000px */
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(240, 240, 240, 0.5);
+    }
+  }
+  
+  /* Estilos para pantallas mayores a 1000px */
+  @media (min-width: 1001px) {
+    .footer {
+      display: none; /* Oculta el footer en pantallas mayores a 1000px */
+    }
+  }
