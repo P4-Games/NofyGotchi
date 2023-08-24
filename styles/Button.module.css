@@ -5,10 +5,16 @@
     margin-top: 1%;
     gap: 8%;
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 520px) {
     
     .buttonContainer {
       gap: 3%;
+    }
+  }
+  @media screen and (max-width: 360px) {
+    
+    .buttonContainer {
+      gap: 1%;
     }
   }
    

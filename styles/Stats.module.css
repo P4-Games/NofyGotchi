@@ -22,6 +22,12 @@
   }
 }
 
+@media screen and (max-width: 360px) {
+  .statBarFill {
+    width: 120%;
+  }
+}
+
 .statBarFillInner {
   height: 100%;
   background-color: #4caf50;
