@@ -192,8 +192,7 @@ const Nofy = () => {
     if (!isBathing) {
       const interval = setInterval(() => {
         setDirtinessLevel((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 40);
-      // OJO! ERA 400
+      }, 400);
 
       setIntervals((prevIntervals) => [...prevIntervals, interval]);
 
