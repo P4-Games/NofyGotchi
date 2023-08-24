@@ -87,12 +87,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: white; /* For browsers that do not support gradients */
+  background-image: linear-gradient(rgb(0, 0, 53), white);
+  background-repeat: no-repeat
 }
 
 a {

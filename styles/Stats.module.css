@@ -36,6 +36,7 @@
 
 .statLabel {
   margin-top: 5px;
+  font-weight: bold;
   transform: scale(-1);
 }
  
