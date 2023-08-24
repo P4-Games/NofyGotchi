@@ -3,8 +3,15 @@
     display: flex;
     justify-content: center;
     margin-top: 1%;
+    gap: 8%;
   }
-  
+  @media screen and (max-width: 500px) {
+    
+    .buttonContainer {
+      gap: 3%;
+    }
+  }
+   
   .button {
     font-size: 100%; /* Utilizar unidades relativas */
     padding: 2% 2%; /* Reducir el tamaño de los botones */

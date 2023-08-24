@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   margin: 5px; /* Reducir el espacio entre las estadísticas */
+  transform: scale(-1);
 }
 
 .statBarFill {
@@ -35,6 +36,7 @@
 
 .statLabel {
   margin-top: 5px;
+  transform: scale(-1);
 }
  
 .greenFillBackground {

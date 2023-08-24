@@ -15,6 +15,7 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    font-weight: bold;
   }
   
   .loginLogout {
@@ -29,6 +30,7 @@
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-weight: bold;
   }
   
   .navButton:hover {
