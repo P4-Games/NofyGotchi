@@ -73,6 +73,13 @@
   }
 }
 
+/* Añade el bloqueo de scroll para pantallas menores o iguales a 1000px */
+@media (max-width: 1000px) {
+  body {
+    overflow: hidden;
+  }
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -89,7 +96,7 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: white; /* For browsers that do not support gradients */
   background-image: linear-gradient(rgb(0, 0, 53), white);
-  background-repeat: no-repeat
+  background-repeat: no-repeat;
 }
 
 a {
