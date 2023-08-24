@@ -52,3 +52,23 @@
     border: 1px solid #fff;
   }
   
+  .soundButton {
+    margin-left: 10px;
+  }
+  
+  .soundToggleButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.3s;
+  }
+  
+  .soundImage {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .soundToggleButton:hover {
+    transform: scale(1.1);
+    filter: brightness(1.5);
+  }

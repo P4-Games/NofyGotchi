@@ -1,9 +1,21 @@
 // components/NavBar.js
 import { useSession, signIn, signOut } from "next-auth/react";
 import styles from "../styles/NavBar.module.css";
+import { useRef, useState } from "react";
 
 export default function NavBar() {
   const { data: session } = useSession();
+  const audioRef = useRef(null);
+  const [isSoundOn, setIsSoundOn] = useState(false);
+
+  const toggleSound = () => {
+    if (isSoundOn) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsSoundOn(!isSoundOn);
+  };
 
   return (
     <nav className={styles.navbar}>
@@ -23,19 +35,31 @@ export default function NavBar() {
             </button>
           )}
         </div>
-        
+
         {/* Avatar y nombre del usuario */}
-        {session && (
-          <div className={styles.userInfo}>
-            <span className={styles.username}>{session.user.name}</span>
-            <img
-              className={styles["user-avatar"]}
-              src={session.user.image}
-              alt="User Avatar"
-            />
+        <div className={styles.userInfo}>
+          {session && (
+            <>
+              <span className={styles.username}>{session.user.name}</span>
+              <img
+                className={styles["user-avatar"]}
+                src={session.user.image}
+                alt="User Avatar"
+              />
+            </>
+          )}
+          <div className={styles.soundButton}>
+            <button className={styles.soundToggleButton} onClick={toggleSound}>
+              <img
+                src={isSoundOn ? "/sound.png" : "/soundoff.png"}
+                alt={isSoundOn ? "Sound" : "Sound Off"}
+                className={styles.soundImage}
+              />
+            </button>
           </div>
-        )}
+        </div>
       </div>
+      <audio ref={audioRef} src="/music/Dungeon.mp3" preload="auto"></audio>
     </nav>
   );
 }
