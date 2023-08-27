@@ -63,6 +63,11 @@
     background-color: red;
     color: white;
   }
+
+  .button-green {
+    background-color: green; 
+    color: white;
+}
   
   .disabledButton {
     opacity: 0.5;
