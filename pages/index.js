@@ -45,7 +45,7 @@ const HomePage = () => {
         <Huevo/> {/* Usa el componente Huevo aquí */}
       </div>
       <div style={{ textAlign: "center", margin: "10px 0" }}>
-      <p style={{ color: "black", fontWeight: "bold" }}>SELECCIONE LA DIFICULTAD</p>
+      <p style={{ color: "white", fontWeight: "bold" }}>SELECCIONE LA DIFICULTAD</p>
     </div>
       {/* Agrega los botones de dificultad */}
       <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>

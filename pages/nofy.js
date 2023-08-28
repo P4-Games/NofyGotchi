@@ -311,10 +311,10 @@ const Nofy = () => {
           margin: "10px 0",
         }}
       >
-        <Stats label="Bug" value={hunger} />
+        <Stats label="Errors" value={hunger} />
         <Stats label="Bounty" value={game} />
         <Timer minutes={minutes} seconds={seconds} />
-        <Stats label="Fine-Tuning" value={dirtinessLevel} />
+        <Stats label="Meduza" value={dirtinessLevel} />
         <Stats label="Battery" value={sueño} />
       </div>
       <Tamagochi
