@@ -27,7 +27,9 @@ const Tamagochi = ({
       <div className={tamagochiStyles.frame}>
         {randomNumber !== null && (
           <img
-  src={`https://bafybeibnw2yuc7tpkt4pkzx3c2yizyjx24vioehwqodxppbqoyncyi4t44.ipfs.dweb.link/${randomNumber}.gif`}
+  src={`https://raw.githubusercontent.com/webtresclub/buttplug-traits/main/buttplugs/images/${randomNumber}.gif`}
+
+  
   alt="Tamagochi"
   className={`${tamagochiStyles.tamagochiImage} ${
     isNight ? tamagochiStyles.nightMode : ""
