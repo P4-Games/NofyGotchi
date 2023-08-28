@@ -2,9 +2,22 @@
 .buttonContainer {
     display: flex;
     justify-content: center;
-    margin-top: 5%;
+    margin-top: 1%;
+    gap: 8%;
   }
-  
+  @media screen and (max-width: 520px) {
+    
+    .buttonContainer {
+      gap: 3%;
+    }
+  }
+  @media screen and (max-width: 360px) {
+    
+    .buttonContainer {
+      gap: 1%;
+    }
+  }
+   
   .button {
     font-size: 100%; /* Utilizar unidades relativas */
     padding: 2% 2%; /* Reducir el tamaño de los botones */
@@ -50,6 +63,11 @@
     background-color: red;
     color: white;
   }
+
+  .button-green {
+    background-color: green; 
+    color: white;
+}
   
   .disabledButton {
     opacity: 0.5;

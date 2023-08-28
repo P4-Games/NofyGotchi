@@ -15,11 +15,11 @@ const Stats = ({ label, value }) => {
 
   return (
     <div className={StatsStyles.statBar}>
-      <span className={StatsStyles.statLabel}>{label}</span>
       <div className={StatsStyles.statBarFill}>
         <div className={`${StatsStyles.statBarFillInner} ${fillBackgroundColorClass}`} style={{ width: `${value}%` }}>
         </div>
       </div>
+      <span className={StatsStyles.statLabel}>{label}</span>
     </div>
   );
 };

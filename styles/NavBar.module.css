@@ -1,0 +1,74 @@
+/* styles/NavBar.module.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: rgba(0, 0, 0, 0);;
+    color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  
+  .navContent {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  
+  .loginLogout {
+    margin-right: auto;
+  }
+  
+  .navButton {
+    background-color: gold;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+  }
+  
+  .navButton:hover {
+    background-color: rgb(116, 84, 5);
+  }
+  
+  .userInfo {
+    display: flex;
+    align-items: center;
+  }
+  .username {
+    margin-right: 10px;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+  }
+  
+  .soundButton {
+    margin-left: 10px;
+  }
+  
+  .soundToggleButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s, filter 0.3s;
+  }
+  
+  .soundImage {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .soundToggleButton:hover {
+    transform: scale(1.1);
+    filter: brightness(1.5);
+  }

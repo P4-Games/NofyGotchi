@@ -7,6 +7,7 @@ import Timer from "../components/Timer";
 import GameOverAlert from "../components/GameOverAlert";
 import styles from "../styles/GameOverAlert.module.css";
 import VictoryAlert from "../components/VictoryAlert";
+import { useRouter } from "next/router";
 
 const Nofy = () => {
   const [showBathGif, setShowBathGif] = useState(false);
@@ -21,6 +22,25 @@ const Nofy = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [showVictoryAlert, setShowVictoryAlert] = useState(false);
   const [isPerformingAction, setIsPerformingAction] = useState(false);
+  const [intervals, setIntervals] = useState([]);
+  const router = useRouter();
+
+  // Utiliza el valor de la dificultad seleccionada para ajustar las variables
+  const selectedDifficulty = router.query.difficulty || "normal"; // Obtiene la dificultad de los query parameters
+
+  const getDifficultyValues = (difficulty) => {
+    switch (difficulty) {
+      case "easy":
+        return { diversion: 750, baño: 600, cansancio: 1000, comida: 650  };
+      case "hard":
+        return { diversion: 650, baño: 400, cansancio: 500, comida: 450 };
+      default:
+        return { diversion: 700, baño: 500, cansancio: 750, comida: 550 };
+    }
+  };
+
+  const { diversion, baño, cansancio, comida } =
+    getDifficultyValues(selectedDifficulty); // Obtiene los valores de dificultad
 
   const [minutes, setMinutes] = useState(5);
   const [seconds, setSeconds] = useState(0);
@@ -85,7 +105,7 @@ const Nofy = () => {
     if (isPerformingAction) return;
     setIsPerformingAction(true);
     handleTimedState("eatGif", 3500);
-  
+
     setTimeout(() => {
       setHunger((prev) => {
         const newValue = prev - 25;
@@ -104,7 +124,7 @@ const Nofy = () => {
     if (isPerformingAction) return; // Checa si ya está realizando una acción
     setIsPerformingAction(true);
     setIsPlaying(true);
-    handleTimedState("gameboyGif", 8000); // Mostrar el gif del juego durante 12 segundos
+    setGifs((prev) => ({ ...prev, gameboyGif: true }));
 
     const decreaseAmount = 40 / 125;
     let iterations = 0;
@@ -117,6 +137,7 @@ const Nofy = () => {
           clearInterval(interval);
           setIsPlaying(false); // Establecer isPlaying en false cuando el juego ha terminado
           setIsPerformingAction(false);
+          setGifs((prev) => ({ ...prev, gameboyGif: false }));
           aumentarStatJuego(); // Llamar a la función para incrementar el stat de juego
           return Math.max(0, newValue);
         }
@@ -128,19 +149,33 @@ const Nofy = () => {
   useEffect(() => {
     // Incrementar el stat de juego cuando no se está jugando el juego
     if (!isPlaying) {
-      const increaseGameboy = setInterval(() => {
+      const interval = setInterval(() => {
         setGameboy((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 650);
-      return () => clearInterval(increaseGameboy);
+      }, diversion);
+
+      setIntervals((prevIntervals) => [...prevIntervals, interval]);
+
+      return () => {
+        clearInterval(interval);
+        setIntervals((prevIntervals) =>
+          prevIntervals.filter((id) => id !== interval)
+        );
+      };
     }
   }, [isPlaying]);
 
   useEffect(() => {
-    const increaseHunger = setInterval(() => {
+    const interval = setInterval(() => {
       setHunger((prev) => (prev >= 100 ? 100 : prev + 1));
-    }, 450); // Incrementar en 1 cada 450ms para llegar a 100 en 45 segundos.
+    }, comida); // Incrementar en 1 cada 450ms para llegar a 100 en 45 segundos.
+    setIntervals((prevIntervals) => [...prevIntervals, interval]);
 
-    return () => clearInterval(increaseHunger);
+    return () => {
+      clearInterval(interval);
+      setIntervals((prevIntervals) =>
+        prevIntervals.filter((id) => id !== interval)
+      );
+    };
   }, []);
 
   useEffect(() => {
@@ -177,25 +212,41 @@ const Nofy = () => {
 
   useEffect(() => {
     if (!isBathing) {
-      const increaseDirtiness = setInterval(() => {
+      const interval = setInterval(() => {
         setDirtinessLevel((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 400);
-      return () => clearInterval(increaseDirtiness);
+      }, baño);
+
+      setIntervals((prevIntervals) => [...prevIntervals, interval]);
+
+      return () => {
+        clearInterval(interval);
+        setIntervals((prevIntervals) =>
+          prevIntervals.filter((id) => id !== interval)
+        );
+      };
     }
   }, [isBathing]);
 
   useEffect(() => {
     if (!isSleeping) {
-      const increaseSleep = setInterval(() => {
+      const interval = setInterval(() => {
         setSueño((prev) => (prev >= 100 ? 100 : prev + 1));
-      }, 500);
-      return () => clearInterval(increaseSleep);
+      }, cansancio);
+
+      setIntervals((prevIntervals) => [...prevIntervals, interval]);
+
+      return () => {
+        clearInterval(interval);
+        setIntervals((prevIntervals) =>
+          prevIntervals.filter((id) => id !== interval)
+        );
+      };
     }
   }, [isSleeping]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (seconds > 0) {
+      if (seconds > 0 && !isPaused) {
         setSeconds((prevSeconds) => prevSeconds - 1);
       } else if (seconds === 0) {
         if (minutes === 0) {
@@ -211,19 +262,34 @@ const Nofy = () => {
 
   useEffect(() => {
     // Verificar si algún stat alcanza 100
-    if (hunger >= 100 || game >= 100 || dirtinessLevel >= 100 || sueño >= 100) {
+    if (
+      hunger >= 100 ||
+      game >= 100 ||
+      dirtinessLevel >= 100 ||
+      (sueño >= 100 && !isPaused)
+    ) {
       // Pausar el juego y mostrar la alerta de "GAME OVER"
+      clearAllIntervals();
       setIsPaused(true);
       setShowGameOverAlert(true);
     }
   }, [hunger, game, dirtinessLevel, sueño]);
 
   useEffect(() => {
-    if (minutes === 0 && seconds === 0) {
+    if (minutes === 0 && seconds === 0 && !isPaused) {
+      clearAllIntervals();
       setShowVictoryAlert(true);
       setIsPaused(true); // Pausa el juego
     }
   }, [minutes, seconds]);
+
+  const clearAllIntervals = () => {
+    console.log("LIMPIANDO");
+    intervals.forEach((interval) => {
+      clearInterval(interval);
+    });
+    setIntervals([]);
+  };
 
   const buttons = [
     { label: "FIXEAR", color: "purple", onClick: handleFeedClick },

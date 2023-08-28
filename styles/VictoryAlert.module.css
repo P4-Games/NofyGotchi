@@ -67,3 +67,17 @@
     background-color: goldenrod;
   }
   
+  .discordButton {
+    background-color: rgb(33, 111, 184);
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .discordButton:hover {
+    background-color: #5c6aee;
+  }

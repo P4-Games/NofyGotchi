@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   margin: 5px; /* Reducir el espacio entre las estadísticas */
+  transform: scale(-1);
 }
 
 .statBarFill {
@@ -18,6 +19,12 @@
 @media screen and (max-width: 500px) {
   .statBarFill {
     width: 130%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .statBarFill {
+    width: 120%;
   }
 }
 
@@ -35,6 +42,9 @@
 
 .statLabel {
   margin-top: 5px;
+  font-weight: bold;
+  transform: scale(-1);
+  color: white;
 }
  
 .greenFillBackground {
