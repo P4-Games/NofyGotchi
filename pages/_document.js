@@ -4,8 +4,8 @@ export default function Document() {
   return (
     <Html lang="es">
       <Head>
-        <title>TamaNofy</title>
-        <meta name="description" content="Ahora Nofy, es un tamagotchi" />
+        <title>Buttplug es un tamagotchi</title>
+        <meta name="description" content="Ahora Buttplug, es un tamagotchi" />
       </Head>
       <body>
         <Main />
