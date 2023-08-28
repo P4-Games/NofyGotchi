@@ -99,7 +99,7 @@ body {
   background-image: url('/hack.gif'); /* Reemplaza 'hack.gif' con la ruta correcta */
   background-size: cover; /* Ajusta el tamaño del fondo según la ventana */
   background-position: center; /* Centra el fondo */
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 a {

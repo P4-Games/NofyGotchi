@@ -2,7 +2,7 @@
     position: fixed; /* Fija el footer en la parte inferior de la pantalla */
     bottom: 0; /* Lo coloca al final de la pantalla */
     width: 100%;
-    background-color: rgba(240, 240, 240, 0.5); /* Fondo transparente con color */
+    background-color: black; /* Fondo transparente con color */
   }
   
   .imageContainer {
@@ -33,7 +33,7 @@
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: rgba(240, 240, 240, 0.5);
+      background-color: transparent;
     }
   }
   
