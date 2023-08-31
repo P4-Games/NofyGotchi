@@ -32,20 +32,30 @@ const GameOverAlert = ({ onClose }) => {
     if (discordId) {
       // For testing purposes
       const timestamp = Date.now();
-      const response = await axios.get(`https://nof.town/api/missing?discordID=${discordId}&timestamp=${timestamp}`, { 'responseType': 'arraybuffer'});
+      const test = "434017814505062401";
+      //const response = await axios.get(`https://nof.town/api/missing?discordID=${test}&timestamp=${timestamp}`, { 'responseType': 'arraybuffer'});
       // END testing
 
-      //const response = await axios.get(`https://nof.town/api/post?discordID=${discordId}`, { 'responseType': 'arraybuffer'});
-      const reward64 = btoa(String.fromCharCode(...new Uint8Array(response.data)));
-      router.push(
-        {
-          pathname: '/reward',
-          query: { 
-            reward: reward64 
+      const response = await axios.get(`https://nof.town/api/post?discordID=${discordId}`, { 'responseType': 'arraybuffer'});
+      console.log(response);
+      const contentType = response.headers.getContentType();
+      if (contentType.startsWith('application/json')) {
+        const json = JSON.parse(String.fromCharCode.apply(null, new Uint8Array(response.data)));
+        alert(json.message)
+      } else {
+        const reward64 = btoa(new Uint8Array(response.data).reduce(function (data, byte) {
+          return data + String.fromCharCode(byte);
+        }, ''));
+        router.push(
+          {
+            pathname: '/reward',
+            query: { 
+              reward: reward64 
+            },
           },
-        },
-        '/reward'
-      );
+          '/reward'
+        );
+      }
     }
   }
 

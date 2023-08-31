@@ -24,8 +24,8 @@ const Nofy = () => {
   const [intervals, setIntervals] = useState([]);
 
 
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(2);
+  const [minutes, setMinutes] = useState(5);
+  const [seconds, setSeconds] = useState(0);
 
   const [gifs, setGifs] = useState({
     eatGif: false,
@@ -253,7 +253,6 @@ const Nofy = () => {
   }, [minutes, seconds]);
 
   const clearAllIntervals = () => {
-    console.log("LIMPIANDO")
     intervals.forEach((interval) => {
       clearInterval(interval);
     });
