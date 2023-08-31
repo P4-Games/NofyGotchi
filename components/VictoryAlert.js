@@ -30,14 +30,21 @@ const GameOverAlert = ({ onClose }) => {
 
   const handleRewardClick = async () => {
     if (discordId) {
-      const testID = "434017814505062401";
-      const response = await axios.get(`https://nof.town/api/post?discordID=${testID}`, { 'responseType': 'arraybuffer'});
+      // For testing purposes
+      const timestamp = Date.now();
+      const response = await axios.get(`https://nof.town/api/missing?discordID=${discordId}&timestamp=${timestamp}`, { 'responseType': 'arraybuffer'});
+      // END testing
+
+      //const response = await axios.get(`https://nof.town/api/post?discordID=${discordId}`, { 'responseType': 'arraybuffer'});
+      const reward64 = btoa(String.fromCharCode(...new Uint8Array(response.data)));
       router.push(
         {
           pathname: '/reward',
-          query: {nofy: response},
-        }
-        //,'/reward', // "as" argument
+          query: { 
+            reward: reward64 
+          },
+        },
+        '/reward'
       );
     }
   }

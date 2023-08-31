@@ -1,15 +1,17 @@
-import React from "react";
 import tamagochiStyles from "../styles/Tamagochi.module.css";
+import { useRouter } from 'next/router';
 
 const Reward = () => {
+  const router = useRouter();
+
   return (
     <div className={tamagochiStyles.tamagochiContainer}>
       <div className={tamagochiStyles.frame}>
         <img
-          src="https://storage.googleapis.com/nof-gamma/T1/12.png"
-          alt="Reward"
-          className={tamagochiStyles.tamagochiImage}
-        />
+            src={`data:image/gif;base64,${router.query.reward}`}
+            alt="Reward"
+            className={tamagochiStyles.tamagochiImage}
+          />
       </div>
     </div>
   );
