@@ -20,7 +20,6 @@
     padding: 20px;
     border-radius: 8px;
     width: 300px;
-    height: 200px;
     text-align: center;
     font-family: "Pixel", Arial, sans-serif;
   }
@@ -64,4 +63,19 @@
 
   .discordButton:hover {
     background-color: #5c6aee;
+  }
+
+  .rewardButton {
+    background-color: rgb(0, 255, 89);
+    color: #000000;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .rewardButton:hover {
+    background-color: rgb(1, 135, 48);
   }

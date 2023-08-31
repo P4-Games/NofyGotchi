@@ -24,8 +24,8 @@ const Nofy = () => {
   const [intervals, setIntervals] = useState([]);
 
 
-  const [minutes, setMinutes] = useState(5);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(2);
 
   const [gifs, setGifs] = useState({
     eatGif: false,
