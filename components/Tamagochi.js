@@ -27,7 +27,7 @@ const Tamagochi = ({
       <div className={tamagochiStyles.frame}>
         {randomNumber !== null && (
           <img
-            src={`https://storage.googleapis.com/nof-gamma/T1/${randomNumber}.png`}
+            src={`https://storage.googleapis.com/nof-gamma/T2/${randomNumber}.png`}
             alt="Tamagochi"
             className={`${tamagochiStyles.tamagochiImage} ${
               isNight ? tamagochiStyles.nightMode : ""}

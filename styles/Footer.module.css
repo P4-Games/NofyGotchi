@@ -43,3 +43,9 @@
       display: none; /* Oculta el footer en pantallas mayores a 1000px */
     }
   }
+
+  @media (max-height: 672px) {
+    .footer {
+      display: none; /* Oculta el footer en pantallas mayores a 1000px */
+    }
+  }
