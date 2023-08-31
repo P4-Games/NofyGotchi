@@ -17,7 +17,7 @@ const Tamagochi = ({
 
   useEffect(() => {
     if (randomNumber === null) {
-      const random = Math.floor(Math.random() * 120);
+      const random = Math.floor(Math.random() * 6) + 1;
       setRandomNumber(random);
     }
   }, [randomNumber]);
@@ -27,7 +27,7 @@ const Tamagochi = ({
       <div className={tamagochiStyles.frame}>
         {randomNumber !== null && (
           <img
-            src={`https://storage.googleapis.com/nof-gamma/T2/${randomNumber}.png`}
+            src={`https://storage.googleapis.com/nof-gamma/chavo/${randomNumber}.png`}
             alt="Tamagochi"
             className={`${tamagochiStyles.tamagochiImage} ${
               isNight ? tamagochiStyles.nightMode : ""}

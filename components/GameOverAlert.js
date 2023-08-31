@@ -8,13 +8,13 @@ const GameOverAlert = ({ onClose }) => {
       <div className={styles.modal}>
         <div className={styles.message}>
           <h2>¡GAME OVER!</h2>
-          <p>Tu Nofy ha muerto, intentalo nuevamente.</p>
+          <p>Es que no me tienen paciencia.</p>
         </div>
         <Link href="/" passHref>
           <button className={styles.playAgainButton}>Jugar de nuevo</button>
         </Link>
-        <Link href="https://discord.gg/t2prTfMwZh" passHref>
-          <button className={styles.discordButton}>¡Sumate a nuestro Discod!</button>
+        <Link href="https://t.me/CHAVOtokenesp" passHref>
+          <button className={styles.discordButton}>¡Sumate a nuestro Telegram!</button>
         </Link>
       </div>
     </div>

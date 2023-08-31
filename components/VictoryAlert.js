@@ -2,23 +2,23 @@
 import Link from "next/link";
 import styles from "../styles/VictoryAlert.module.css";
 
-const GameOverAlert = ({ onClose }) => {
+const VictoryAlert = ({ onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.message}>
           <h2>¡VICTORY!</h2>
-          <p>Felcitaciones has superado el desafio, eres un verdadero Number One Fan.</p>
+          <p>¡Fué sin querer queriendo!</p>
         </div>
         <Link href="/" passHref>
           <button className={styles.playAgainButton}>Jugar de nuevo</button>
         </Link>
-        <Link href="https://discord.gg/t2prTfMwZh" passHref>
-          <button className={styles.discordButton}>¡Sumate a nuestro Discod!</button>
+        <Link href="https://t.me/CHAVOtokenesp" passHref>
+          <button className={styles.discordButton}>¡Sumate a nuestro Telegram!</button>
         </Link>
       </div>
     </div>
   );
 };
 
-export default GameOverAlert;
+export default VictoryAlert;

@@ -6,7 +6,7 @@ const Huevo = () => {
     <div className={tamagochiStyles.tamagochiContainer}>
       <div className={tamagochiStyles.frame}>
         <img
-          src="https://cdn.discordapp.com/attachments/907599032623431681/1138187870809640980/eggg.gif"
+          src="https://cdn.discordapp.com/attachments/907599032623431681/1146624720498872421/intro.gif"
           alt="Huevo"
           className={tamagochiStyles.tamagochiImage}
         />
