@@ -284,7 +284,6 @@ const Nofy = () => {
   }, [minutes, seconds]);
 
   const clearAllIntervals = () => {
-    console.log("LIMPIANDO");
     intervals.forEach((interval) => {
       clearInterval(interval);
     });
