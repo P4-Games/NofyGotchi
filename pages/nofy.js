@@ -42,8 +42,8 @@ const Nofy = () => {
   const { diversion, baño, cansancio, comida } =
     getDifficultyValues(selectedDifficulty); // Obtiene los valores de dificultad
 
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(5);
+  const [minutes, setMinutes] = useState(5);
+  const [seconds, setSeconds] = useState(0);
 
   const [gifs, setGifs] = useState({
     eatGif: false,
