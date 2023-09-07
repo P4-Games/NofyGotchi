@@ -59,7 +59,7 @@ export default function NavBar() {
           </div>
         </div>
       </div>
-      <audio ref={audioRef} src="/music/Dungeon.mp3" preload="auto"></audio>
+      <audio ref={audioRef} src="/music/Dungeon.mp3" preload="auto" loop></audio>
     </nav>
   );
 }
