@@ -2,62 +2,9 @@
 import Link from "next/link";
 import styles from "../styles/VictoryAlert.module.css";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import { useRouter } from 'next/router';
-import axios from 'axios';
 
 const GameOverAlert = ({ onClose }) => {
   const { data: session, status } = useSession();
-  const [discordId, setDiscordId] = useState(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === 'authenticated') {
-      const fetchUserId = async () => {
-        try {
-          const url = session.user.image
-          const regex = /\/avatars\/(\d+)\//;
-          const match = url.match(regex);
-          setDiscordId(match[1]);
-        } catch (error) {
-          console.error('Failed to fetch user ID:', error);
-        }
-      };
-
-      fetchUserId();
-    }
-  }, []);
-
-  const handleRewardClick = async () => {
-    if (discordId) {
-      // For testing purposes
-      const timestamp = Date.now();
-      const test = "434017814505062401";
-      //const response = await axios.get(`https://nof.town/api/missing?discordID=${test}&timestamp=${timestamp}`, { 'responseType': 'arraybuffer'});
-      // END testing
-
-      const response = await axios.get(`https://nof.town/api/post?discordID=${discordId}`, { 'responseType': 'arraybuffer'});
-      console.log(response);
-      const contentType = response.headers.getContentType();
-      if (contentType.startsWith('application/json')) {
-        const json = JSON.parse(String.fromCharCode.apply(null, new Uint8Array(response.data)));
-        alert(json.message)
-      } else {
-        const reward64 = btoa(new Uint8Array(response.data).reduce(function (data, byte) {
-          return data + String.fromCharCode(byte);
-        }, ''));
-        router.push(
-          {
-            pathname: '/reward',
-            query: { 
-              reward: reward64 
-            },
-          },
-          '/reward'
-        );
-      }
-    }
-  }
 
   return (
     <div className={styles.overlay}>
@@ -72,8 +19,8 @@ const GameOverAlert = ({ onClose }) => {
         <Link href="https://discord.gg/t2prTfMwZh" passHref>
           <button className={styles.discordButton}>¡Sumate a nuestro Discod!</button>
         </Link>
-        {discordId && (
-        <a onClick={handleRewardClick}>
+        {status === 'authenticated' && (
+        <a href="/reward">
           <button className={styles.rewardButton}>¡Obtené tu recompensa!</button>
         </a>
         )}
