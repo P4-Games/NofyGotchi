@@ -4,8 +4,10 @@ import axios from 'axios';
 export default async (req, res) => {
   try {
     const { discordId } = req.query;
+    //const discordId = "434017814505062401";
 
     const response = await axios.get(`https://nof.town/api/post?discordID=${discordId}`, { 'responseType': 'arraybuffer'});
+    //const response = await axios.get(`https://nof.town/api/missing?discordID=${discordId}`, { 'responseType': 'arraybuffer'});
     const contentType = response.headers.getContentType();
     if (contentType.startsWith('application/json')) {
       const json = JSON.parse(String.fromCharCode.apply(null, new Uint8Array(response.data)));

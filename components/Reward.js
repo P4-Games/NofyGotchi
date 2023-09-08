@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from "next-auth/react";
 import Confetti from "../components/Confetti";
 import tamagochiStyles from "../styles/Tamagochi.module.css";
+import rewardStyles from "../styles/Reward.module.css";
 import axios from 'axios';
+import Link from "next/link";
 
 const Reward = () => {
   const [message, setMessage] = useState(null);
@@ -41,8 +43,15 @@ const Reward = () => {
   }, [status]);
 
   return (
-    <div>
-      {message && <h1>{message}</h1>}
+    <div className={tamagochiStyles.tamagochiContainer}>
+      {message &&
+        <div className={rewardStyles.modal}>
+          <div className={rewardStyles.message}>
+            <h2>¡Has roto la Matrix!</h2>
+            <p>Felcitaciones, ya tienes todos los nofys especiales.</p>
+          </div>
+        </div>
+      }
       {rewardImage && 
           <div className={tamagochiStyles.frame}>
             <Confetti />
@@ -53,6 +62,9 @@ const Reward = () => {
             />
           </div>
       }
+      <Link href="/" passHref>
+        <button className={rewardStyles.playAgainButton}>Jugar de nuevo</button>
+      </Link>
     </div>
   );
 };
