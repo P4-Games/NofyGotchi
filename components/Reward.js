@@ -42,6 +42,15 @@ const Reward = () => {
     }
   }, [status]);
 
+  useEffect(() => {
+    window.onbeforeunload = function() {
+      window.setTimeout(function () {
+        window.location = '/';
+      }, 0);
+      window.onbeforeunload = null; // necessary to prevent infinite loop, that kills your browser
+    }
+  }, []);
+
   return (
     <div className={tamagochiStyles.tamagochiContainer}>
       {message &&
