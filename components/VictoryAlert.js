@@ -1,8 +1,11 @@
 // components/VictoryAlert.js
 import Link from "next/link";
 import styles from "../styles/VictoryAlert.module.css";
+import { useSession } from "next-auth/react";
 
 const GameOverAlert = ({ onClose }) => {
+  const { data: session, status } = useSession();
+
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
@@ -16,6 +19,11 @@ const GameOverAlert = ({ onClose }) => {
         <Link href="https://discord.com/invite/eegRCDmwbM" passHref>
           <button className={styles.discordButton}>¡Sumate a nuestro Discod!</button>
         </Link>
+        {status === 'authenticated' && (
+        <a href="/reward">
+          <button className={styles.rewardButton}>¡Obtené tu recompensa!</button>
+        </a>
+        )}
       </div>
     </div>
   );

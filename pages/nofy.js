@@ -190,9 +190,9 @@ const Nofy = () => {
       sueño,
       [50, 75],
       [
-        "https://cdn.discordapp.com/attachments/907599032623431681/1137188216793997343/tarde.gif",
-        "https://cdn.discordapp.com/attachments/907599032623431681/1137188248695865455/luna.gif",
-        "https://cdn.discordapp.com/attachments/907599032623431681/1137188198607499264/sol.gif",
+        "/animaciones/tarde.gif",
+        "/animaciones/luna.gif",
+        "/animaciones/sol.gif",
       ],
       "sleepGif"
     );
@@ -201,9 +201,9 @@ const Nofy = () => {
       dirtinessLevel,
       [30, 50, 75],
       [
-        "https://cdn.discordapp.com/attachments/907599032623431681/1137093146191339652/caca1.gif",
-        "https://cdn.discordapp.com/attachments/907599032623431681/1137093161496367265/caca2.gif",
-        "https://cdn.discordapp.com/attachments/907599032623431681/1137093247945150515/caca3.gif",
+        "/animaciones/caca1.gif",
+        "/animaciones/caca2.gif",
+        "/animaciones/caca3.gif",
         null,
       ],
       "hygieneGif"
@@ -284,7 +284,6 @@ const Nofy = () => {
   }, [minutes, seconds]);
 
   const clearAllIntervals = () => {
-    console.log("LIMPIANDO");
     intervals.forEach((interval) => {
       clearInterval(interval);
     });
