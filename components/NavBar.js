@@ -21,7 +21,7 @@ export default function NavBar() {
     <nav className={styles.navbar}>
       <div className={styles.navContent}>
         {/* Botón de inicio de sesión / cierre de sesión */}
-        <div className={styles.loginLogout}>
+        {/* <div className={styles.loginLogout}>
           {session ? (
             <button className={styles.navButton} onClick={() => signOut()}>
               Logout
@@ -34,7 +34,7 @@ export default function NavBar() {
               Login
             </button>
           )}
-        </div>
+        </div> */}
 
         {/* Avatar y nombre del usuario */}
         <div className={styles.userInfo}>

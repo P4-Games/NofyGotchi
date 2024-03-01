@@ -41,7 +41,7 @@ const Tamagochi = ({
         {showBathGif && (
           <div className={tamagochiStyles.bathGifContainer}>
             <img
-              src="https://cdn.discordapp.com/attachments/907599032623431681/1140831820909392023/love.gif"
+              src="/animaciones/love.gif"
               alt="Bath Gif"
               className={`${tamagochiStyles.bathGif}`}
               style={{ width: "100%", height: "100%" }}
@@ -51,7 +51,7 @@ const Tamagochi = ({
         {eatGif && (
           <div className={tamagochiStyles.eatGifContainer}>
             <img
-              src="https://cdn.discordapp.com/attachments/907599032623431681/1140834290809196554/error.gif"
+              src="/animaciones/error.gif"
               alt="Eat Gif"
               className={`${tamagochiStyles.eatGif}`}
               style={{ width: "100%", height: "100%" }}
@@ -61,7 +61,7 @@ const Tamagochi = ({
         {zzzGif && (
           <div className={tamagochiStyles.zzzGifContainer}>
             <img
-              src="https://cdn.discordapp.com/attachments/907599032623431681/1140830644130300034/battery.gif"
+              src="/animaciones/battery.gif"
               alt="Zzz Gif"
               className={`${tamagochiStyles.zzzGif}`}
               style={{ width: "100%", height: "100%" }}
@@ -71,7 +71,7 @@ const Tamagochi = ({
         {gameboyGif && (
           <div className={tamagochiStyles.gameboyGifContainer}>
             <img
-              src="https://cdn.discordapp.com/attachments/907599032623431681/1140829281023434832/pac-man.gif"
+              src="/animaciones/pac-man.gif"
               alt="Gameboy Gif"
               className={`${tamagochiStyles.gameboyGif}`}
               style={{ width: "100%", height: "100%" }}
@@ -81,7 +81,7 @@ const Tamagochi = ({
         {gymGif && (
           <div className={tamagochiStyles.gymGifContainer}>
             <img
-              src="https://cdn.discordapp.com/attachments/907599032623431681/1136720725529604146/gym.gif"
+              src="/animaciones/gym.gif"
               alt="Gym Gif"
               className={`${tamagochiStyles.gymGif}`}
               style={{ width: "100%", height: "100%" }}
