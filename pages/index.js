@@ -1,23 +1,21 @@
-import React, { useState } from "react"; // Importa useState
+import React, { useState } from "react";
 import ButtonBar from "../components/ButtonBar";
-import tamagochiStyles from '../styles/Tamagochi.module.css'; // Importa los estilos
-import Huevo from "../components/Huevo"; // Importa el componente
-import { useRouter } from 'next/router';
-
+import tamagochiStyles from "../styles/Tamagochi.module.css";
+import Huevo from "../components/Huevo";
+import { useRouter } from "next/router";
 
 const HomePage = () => {
   const router = useRouter();
-  const [selectedDifficulty, setSelectedDifficulty] = useState("normal"); // Estado para la dificultad
+  const [selectedDifficulty, setSelectedDifficulty] = useState("normal");
 
   const handleDifficultyClick = (difficulty) => {
-    setSelectedDifficulty(difficulty); // Actualiza el estado con la dificultad seleccionada
+    setSelectedDifficulty(difficulty);
     router.push({
-      pathname: '/nofy',
-      query: { difficulty }, // Pasa la dificultad seleccionada como query parameter
+      pathname: "/nofy",
+      query: { difficulty },
     });
   };
 
-  // Agrega botones de dificultad
   const difficultyButtons = [
     {
       label: "Easy",
@@ -40,17 +38,33 @@ const HomePage = () => {
   ];
 
   return (
-    <div>
-      <div className={tamagochiStyles.tamagochiContainer}>
-        <Huevo/> {/* Usa el componente Huevo aquí */}
+    <div className={tamagochiStyles.gameScreen}>
+      <div className={tamagochiStyles.tamagochiWrapper}>
+        <Huevo />
       </div>
-      <div style={{ textAlign: "center", margin: "10px 0" }}>
-      <p style={{ color: "black", fontWeight: "bold" }}>SELECCIONE LA DIFICULTAD</p>
-    </div>
-      {/* Agrega los botones de dificultad */}
-      <div style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}>
-        <ButtonBar buttons={difficultyButtons} />
+      <div style={{ textAlign: "center", marginTop: "12px", marginBottom: "4px" }}>
+        <p
+          style={{
+            fontSize: "0.8rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            opacity: 0.8,
+          }}
+        >
+          Elige tu desafío
+        </p>
+        <p
+          style={{
+            fontSize: "1.2rem",
+            fontWeight: 700,
+            marginTop: "4px",
+            color: "#e5e7eb",
+          }}
+        >
+          Selecciona la dificultad
+        </p>
       </div>
+      <ButtonBar buttons={difficultyButtons} />
     </div>
   );
 };

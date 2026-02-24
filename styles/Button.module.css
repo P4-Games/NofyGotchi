@@ -1,75 +1,90 @@
 /* styles/Button.module.css */
-.buttonContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 1%;
-    gap: 8%;
-  }
-  @media screen and (max-width: 520px) {
-    
-    .buttonContainer {
-      gap: 3%;
-    }
-  }
-  @media screen and (max-width: 360px) {
-    
-    .buttonContainer {
-      gap: 1%;
-    }
-  }
-   
-  .button {
-    font-size: 100%; /* Utilizar unidades relativas */
-    padding: 2% 2%; /* Reducir el tamaño de los botones */
-    margin: 1.5%; /* Reducir el espacio entre los botones */
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  @media screen and (min-width: 500px) {
-    .button {
-      font-size: 130%;
-    }
-  }
-
-  /* Estilo al hacer hover sobre el botón */
-.button:hover {
-    /* Aplicar una escala de 1.1 para el efecto de zoom */
-    transform: scale(1.1);
-  }
-  
-  .button-purple {
-    background-color: purple;
-    color: white;
-  }
-  
-  .button-blue {
-    background-color: blue;
-    color: white;
-  }
-  
-  .button-orange {
-    background-color: orange;
-    color: black;
-  }
-
-  .button-brown {
-    background-color: brown;
-    color: white;
-  }
-
-  .button-red {
-    background-color: red;
-    color: white;
-  }
-
-  .button-green {
-    background-color: green; 
-    color: white;
+ .buttonContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
-  
-  .disabledButton {
-    opacity: 0.5;
-    cursor: not-allowed;
+
+@media screen and (max-width: 520px) {
+  .buttonContainer {
+    gap: 6px;
   }
+}
+
+@media screen and (max-width: 360px) {
+  .buttonContainer {
+    gap: 4px;
+  }
+}
+
+.button {
+  position: relative;
+  font-size: 0.9rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fdfcff;
+  background: linear-gradient(135deg, rgba(157, 148, 255, 0.9), rgba(120, 220, 255, 0.95));
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease,
+    opacity 0.15s ease;
+}
+
+@media screen and (min-width: 500px) {
+  .button {
+    font-size: 1rem;
+  }
+}
+
+.button:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.65);
+  filter: brightness(1.05);
+}
+
+.button:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
+  filter: brightness(0.98);
+}
+
+.button-purple {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+}
+
+.button-blue {
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+}
+
+.button-orange {
+  background: linear-gradient(135deg, #fb923c, #facc15);
+  color: #171717;
+}
+
+.button-brown {
+  background: linear-gradient(135deg, #92400e, #f97316);
+}
+
+.button-red {
+  background: linear-gradient(135deg, #f97373, #fb1d55);
+}
+
+.button-green {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+}
+
+.disabledButton {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}

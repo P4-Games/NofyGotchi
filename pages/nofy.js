@@ -1,5 +1,5 @@
 // pages/nofy.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Tamagochi from "../components/Tamagochi";
 import ButtonBar from "../components/ButtonBar";
 import Stats from "../components/Stats";
@@ -7,6 +7,7 @@ import Timer from "../components/Timer";
 import GameOverAlert from "../components/GameOverAlert";
 import styles from "../styles/GameOverAlert.module.css";
 import VictoryAlert from "../components/VictoryAlert";
+import layoutStyles from "../styles/Tamagochi.module.css";
 import { useRouter } from "next/router";
 
 const Nofy = () => {
@@ -23,6 +24,7 @@ const Nofy = () => {
   const [showVictoryAlert, setShowVictoryAlert] = useState(false);
   const [isPerformingAction, setIsPerformingAction] = useState(false);
   const [intervals, setIntervals] = useState([]);
+  const actionSoundsRef = useRef(null);
   const router = useRouter();
 
   // Utiliza el valor de la dificultad seleccionada para ajustar las variables
@@ -53,6 +55,31 @@ const Nofy = () => {
     sleepGif: null,
   });
 
+  useEffect(() => {
+    const feed = new Audio("/sounds/feed.mp3");
+    const play = new Audio("/sounds/play.mp3");
+    const bath = new Audio("/sounds/bath.mp3");
+    const sleep = new Audio("/sounds/sleep.mp3");
+
+    [feed, play, bath, sleep].forEach((audio) => {
+      audio.volume = 0.7;
+    });
+
+    actionSoundsRef.current = { feed, play, bath, sleep };
+  }, []);
+
+  const playActionSound = (key) => {
+    const sounds = actionSoundsRef.current;
+    if (!sounds || !sounds[key]) return;
+    const audio = sounds[key];
+    try {
+      audio.currentTime = 0;
+      audio.play();
+    } catch {
+      // ignorar errores de reproducción (por ejemplo, bloqueo del navegador)
+    }
+  };
+
   const handleTimedState = (stateKey, duration) => {
     setGifs((prev) => ({ ...prev, [stateKey]: true }));
     setTimeout(() => {
@@ -62,6 +89,7 @@ const Nofy = () => {
 
   const handleBathClick = () => {
     if (isPerformingAction) return; // Checa si ya está realizando una acción
+    playActionSound("bath");
     setIsPerformingAction(true);
     setShowBathGif(true);
     setIsBathing(true);
@@ -82,6 +110,7 @@ const Nofy = () => {
 
   const handleZzzClick = () => {
     if (isPerformingAction) return; // Checa si ya está realizando una acción
+    playActionSound("sleep");
     setIsPerformingAction(true);
     setIsSleeping(true);
     setGifs((prev) => ({ ...prev, zzzGif: true })); // Activar el gif de dormir
@@ -103,6 +132,7 @@ const Nofy = () => {
 
   const handleFeedClick = () => {
     if (isPerformingAction) return;
+    playActionSound("feed");
     setIsPerformingAction(true);
     handleTimedState("eatGif", 3500);
 
@@ -122,6 +152,7 @@ const Nofy = () => {
 
   const handleGameboyClick = () => {
     if (isPerformingAction) return; // Checa si ya está realizando una acción
+    playActionSound("play");
     setIsPerformingAction(true);
     setIsPlaying(true);
     setGifs((prev) => ({ ...prev, gameboyGif: true }));
@@ -290,6 +321,62 @@ const Nofy = () => {
     setIntervals([]);
   };
 
+  const getNofyMessage = () => {
+    const dangerThreshold = 85;
+    const warnThreshold = 60;
+
+    const stats = [
+      { key: "hunger", label: "hambre", value: hunger },
+      { key: "game", label: "aburrimiento", value: game },
+      { key: "dirtiness", label: "suciedad", value: dirtinessLevel },
+      { key: "sleep", label: "sueño", value: sueño },
+    ];
+
+    const top = stats.reduce((max, stat) =>
+      stat.value > max.value ? stat : max
+    );
+
+    if (top.value < warnThreshold) {
+      if (top.value <= 20) {
+        return "Me siento genial, gracias por cuidarme tanto.";
+      }
+      if (top.value <= 40) {
+        return "Todo tranquilo por ahora, pero no me descuides.";
+      }
+      return "Estoy bien, solo vigilando que todo siga en orden.";
+    }
+
+    if (top.key === "hunger") {
+      if (top.value >= dangerThreshold) {
+        return "¡Tengo muchísima hambre, por favor dame de comer ya!";
+      }
+      return "Empiezo a tener hambre... un snack no vendría mal.";
+    }
+
+    if (top.key === "game") {
+      if (top.value >= dangerThreshold) {
+        return "¡Estoy muy aburrido, juguemos algo ahora mismo!";
+      }
+      return "Me estoy aburriendo un poquito, ¿jugamos un rato?";
+    }
+
+    if (top.key === "dirtiness") {
+      if (top.value >= dangerThreshold) {
+        return "Me siento super sucio... necesito un buen baño.";
+      }
+      return "Creo que me vendría bien un bañito pronto.";
+    }
+
+    if (top.key === "sleep") {
+      if (top.value >= dangerThreshold) {
+        return "Tengo muchísimo sueño, ¿podemos dormir un rato?";
+      }
+      return "Empiezo a sentir sueño, una siestita no sonaría mal.";
+    }
+
+    return "Estoy atento, dime qué hacemos ahora.";
+  };
+
   const buttons = [
     { label: "ALIMENTAR", color: "purple", onClick: handleFeedClick },
     { label: "JUGAR", color: "blue", onClick: handleGameboyClick },
@@ -298,33 +385,26 @@ const Nofy = () => {
   ];
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          width: "100%",
-          maxWidth: "700px",
-          margin: "10px 0",
-        }}
-      >
+    <div className={layoutStyles.gameScreen}>
+      <div className={layoutStyles.statsHeader}>
+        <Timer minutes={minutes} seconds={seconds} />
+      </div>
+      <div className={layoutStyles.statsRow}>
         <Stats label="Hambre" value={hunger} />
         <Stats label="Felicidad" value={game} />
-        <Timer minutes={minutes} seconds={seconds} />
         <Stats label="Suciedad" value={dirtinessLevel} />
         <Stats label="Sueño" value={sueño} />
       </div>
-      <Tamagochi
-        {...gifs}
-        showBathGif={showBathGif}
-        isNight={sueño >= 75}
-        isNoon={sueño >= 50 && sueño < 75}
-      />
-      <div
-        style={{ display: "flex", justifyContent: "center", margin: "10px 0" }}
-      >
+      <div className={layoutStyles.tamagochiWrapper}>
+        <Tamagochi
+          {...gifs}
+          showBathGif={showBathGif}
+          isNight={sueño >= 75}
+          isNoon={sueño >= 50 && sueño < 75}
+          message={getNofyMessage()}
+        />
+      </div>
+      <div className={layoutStyles.controlsRow}>
         <ButtonBar buttons={buttons} isPerformingAction={isPerformingAction} />
         {isPaused && <div className={styles.overlay} />}{" "}
         {/* Agrega el fondo para la pausa */}

@@ -1,74 +1,98 @@
 /* styles/NavBar.module.css */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px;
-    background-color: rgba(0, 0, 0, 0);;
-    color: #fff;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  }
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: linear-gradient(
+      120deg,
+      rgba(15, 23, 42, 0.88),
+      rgba(15, 23, 42, 0.75)
+    )
+    border-box;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.9);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.55);
+}
 
-  
-  .navContent {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    justify-content: space-between;
-    font-weight: bold;
-  }
-  
-  .loginLogout {
-    margin-right: auto;
-  }
-  
-  .navButton {
-    background-color: gold;
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: bold;
-  }
-  
-  .navButton:hover {
-    background-color: rgb(116, 84, 5);
-  }
-  
-  .userInfo {
-    display: flex;
-    align-items: center;
-  }
-  .username {
-    margin-right: 10px;
-  }
-  
-  .user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid #fff;
-  }
-  
-  .soundButton {
-    margin-left: 10px;
-  }
-  
-  .soundToggleButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.3s, filter 0.3s;
-  }
-  
-  .soundImage {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .soundToggleButton:hover {
-    transform: scale(1.1);
-    filter: brightness(1.5);
-  }
+.navContent {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 1080px;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.loginLogout {
+  margin-right: auto;
+}
+
+.navButton {
+  background: linear-gradient(135deg, #eab308, #facc15);
+  color: #020617;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+}
+
+.navButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.75);
+  filter: brightness(1.05);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username {
+  margin-right: 4px;
+  font-size: 0.9rem;
+  color: #cbd5f5;
+}
+
+.user-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.9);
+}
+
+.soundButton {
+  margin-left: 4px;
+}
+
+.soundToggleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.soundImage {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.75));
+}
+
+.soundToggleButton:hover {
+  transform: translateY(-1px) scale(1.05);
+  filter: brightness(1.2);
+}

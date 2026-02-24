@@ -12,6 +12,7 @@ const Tamagochi = ({
   sleepGif,
   isNight,
   isNoon,
+  message,
 }) => {
   const [randomNumber, setRandomNumber] = useState(null);
 
@@ -25,6 +26,11 @@ const Tamagochi = ({
   return (
     <div className={tamagochiStyles.tamagochiContainer}>
       <div className={tamagochiStyles.frame}>
+        {message && (
+          <div className={tamagochiStyles.messageBubble}>
+            {message}
+          </div>
+        )}
         {randomNumber !== null && (
           <img
             src={`https://storage.googleapis.com/nof-gamma/T2/${randomNumber}.png`}

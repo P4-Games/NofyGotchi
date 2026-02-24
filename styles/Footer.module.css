@@ -1,51 +1,56 @@
 .footer {
-    position: fixed; /* Fija el footer en la parte inferior de la pantalla */
-    bottom: 0; /* Lo coloca al final de la pantalla */
-    width: 100%;
-    background-color: rgba(240, 240, 240, 0.5); /* Fondo transparente con color */
-  }
-  
-  .imageContainer {
-    display: flex;
-    padding: 10px;
-    animation: scrollImages 120s linear infinite;
-  }
-  
-  @keyframes scrollImages {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(calc(-80px * 132));
-    }
-  }
-  
-  .image {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-  }
-  
-  /* Estilos para pantallas menores o iguales a 1000px */
-@media (max-width: 1000px) {
-    .footer {
-      display: block; /* Muestra el footer en pantallas menores o iguales a 1000px */
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: rgba(240, 240, 240, 0.5);
-    }
-  }
-  
-  /* Estilos para pantallas mayores a 1000px */
-  @media (min-width: 1001px) {
-    .footer {
-      display: none; /* Oculta el footer en pantallas mayores a 1000px */
-    }
-  }
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 4px 0;
+  background:
+    linear-gradient(to top, rgba(3, 7, 18, 0.96), rgba(15, 23, 42, 0.92));
+  border-top: 1px solid rgba(148, 163, 184, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 -10px 26px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  z-index: 30;
+}
 
-  @media (max-height: 672px) {
-    .footer {
-      display: none; /* Oculta el footer en pantallas mayores a 1000px */
-    }
+.imageContainer {
+  display: flex;
+  padding: 6px 10px;
+  animation: scrollImages 120s linear infinite;
+}
+
+@keyframes scrollImages {
+  0% {
+    transform: translateX(0);
   }
+  100% {
+    transform: translateX(calc(-70px * 132));
+  }
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  margin-right: 8px;
+  filter: drop-shadow(0 0 6px rgba(148, 163, 184, 0.6));
+}
+
+/* Estilos para pantallas menores o iguales a 1000px */
+@media (max-width: 1000px) {
+  .footer {
+    display: block;
+  }
+}
+
+/* Estilos para pantallas mayores a 1000px */
+@media (min-width: 1001px) {
+  .footer {
+    display: none;
+  }
+}
+
+@media (max-height: 672px) {
+  .footer {
+    display: none;
+  }
+}

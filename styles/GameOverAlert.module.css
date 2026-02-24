@@ -16,50 +16,61 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #3b3939;
+    background: radial-gradient(circle at top, rgba(254, 226, 226, 0.06), transparent 60%),
+      linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(127, 29, 29, 0.98));
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 18px;
     width: 300px;
     height: 200px;
     text-align: center;
     font-family: "Pixel", Arial, sans-serif;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(248, 113, 113, 0.7);
   }
   
   .message h2 {
     font-size: 24px;
-    color: rgb(255, 0, 0);
+    color: rgb(252, 165, 165);
     margin-bottom: 10px;
+    text-shadow: 0 0 18px rgba(248, 113, 113, 0.95);
   }
   
   .message p {
     font-size: 14px;
-    color: #ffffff;
+    color: #fee2e2;
     margin-bottom: 20px;
   }
   
   .playAgainButton {
-    background-color: #1b5304;
-    color: #ffffff;
+    background: linear-gradient(135deg, #fecaca, #f97373);
+    color: #111827;
     border: none;
-    border-radius: 4px;
+    border-radius: 999px;
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 24px rgba(127, 29, 29, 0.9);
   }
   
   .playAgainButton:hover {
-    background-color: #4cbb03;
+    background-color: #fecaca;
   }
   
   .discordButton {
-    background-color: rgb(33, 111, 184);
-    color: #000000;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    color: #0f172a;
     border: none;
-    border-radius: 4px;
+    border-radius: 999px;
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 10px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
   }
 
   .discordButton:hover {

@@ -1,14 +1,20 @@
 /* styles/Tamagotchi.module.css */
 @keyframes breathe {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-@keyframes move {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(10px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateY(2px) scale(0.98) rotate(-1.5deg);
+  }
+  20% {
+    transform: translateY(-4px) scale(1.03) rotate(0deg);
+  }
+  45% {
+    transform: translateY(1px) scale(1) rotate(1deg);
+  }
+  70% {
+    transform: translateY(-3px) scale(1.02) rotate(0deg);
+  }
+  100% {
+    transform: translateY(2px) scale(0.99) rotate(-1.5deg);
+  }
 }
 
 .tamagochiContainer {
@@ -22,27 +28,125 @@
 .frame {
   width: 100%;
   height: 90%;
-  border: 10px solid gold;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
-  border-radius: 20px;
+  border-radius: 28px;
+  padding: 10px;
+
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(145deg, rgba(19, 27, 70, 0.96), rgba(9, 15, 45, 0.98));
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(var(--border-strong));
 }
 
 @media screen and (min-width: 601px) {
   .frame {
-    width: 45%;
+    width: 52%;
   }
 }
 
 .tamagochiImage {
   max-width: 100%;
   max-height: 100%;
-  animation: breathe 0.5s infinite alternate, move 1s linear infinite;
+  animation: breathe 2.4s ease-in-out infinite;
   position: relative;
   z-index: 2;
+}
+
+.gameScreen {
+  width: 100%;
+  max-width: 960px;
+  margin: 20px auto 40px;
+  padding: 24px 20px 28px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.07), transparent 65%),
+    linear-gradient(150deg, rgba(17, 21, 60, 0.98), rgba(6, 10, 34, 0.98));
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(var(--border-subtle));
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+.statsRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.statsHeader {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tamagochiWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.messageBubble {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  max-width: 80%;
+  border-radius: 999px;
+  background: radial-gradient(circle at top left, rgba(191, 219, 254, 0.16), transparent 65%),
+    rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.8);
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.9);
+  font-size: 0.78rem;
+  color: #e5e7eb;
+  text-align: center;
+  z-index: 4;
+}
+
+.controlsRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+@media screen and (max-width: 700px) {
+  .gameScreen {
+    padding: 12px 10px 14px;
+    border-radius: 26px;
+    margin: 8px auto 12px;
+  }
+
+  .statsRow {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-items: center;
+    align-items: center;
+    gap: 6px 8px;
+  }
+
+  .frame {
+    width: 100%;
+    max-height: 260px;
+  }
+
+  .messageBubble {
+    top: 4px;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
 }
 
 .bathGifContainer {
@@ -58,7 +162,7 @@
 }
 
 .bathGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
 .eatGifContainer {
@@ -74,7 +178,7 @@
 }
 
 .eatGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
 .zzzGifContainer {
@@ -90,7 +194,7 @@
 }
 
 .zzzGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
 .gameboyGifContainer {
@@ -106,7 +210,7 @@
 }
 
 .gameboyGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
 .gymGifContainer {
@@ -122,7 +226,7 @@
 }
 
 .gymGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
 .hygieneGifContainer {
@@ -138,7 +242,7 @@
 }
 
 .hygieneGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
 .sleepGifContainer {
@@ -154,9 +258,25 @@
 }
 
 .sleepGif {
-  animation: none;
+  animation: actionPop 0.35s ease-out forwards;
 }
 
+@keyframes actionPop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.98);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .nightMode {
   filter: brightness(20%);
 }
